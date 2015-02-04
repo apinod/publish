@@ -1,0 +1,102 @@
+        
+<div class="nav-wrapper">
+    <ul id="nav"
+        class="nav"
+        data-ng-controller="NavCtrl"
+        data-slim-scroll
+        data-collapse-nav
+        data-highlight-active
+       >
+        <li>
+            <a href="#/dashboard"> <i class="fa fa-dashboard"></i><span data-i18n="Dashboard"></span> </a>
+        </li>
+        <li>
+            <a href="#/newTransaction"><i class="fa fa-credit-card"></i><span data-i18n="Transactions"></span></a>
+            <ul>
+
+                <li><a href="#/newTransaction/B">New Transaction</a></li>
+                <li><a href="#/transactionList/1">Pending Transaction(s)</a></li>
+                <li><a href="#/transactionList/2">Verified Transaction(s)</a></li>
+                <li><a href="#/transactionList/3">Approved Transaction(s)</a></li>
+                <li><a href="#/transactionList/4">Disputed Transaction(s)</a></li>
+                <li><a href="#1">Approved with dispute</a></li>
+                <li><a href="#1">Return Transaction(s)</a></li>
+                <li><a href="#1">Canceled Transaction(s)</a></li>
+                <li><a href="#1">Credit Memo</a></li>
+                <li><a href="#1">Debit Memo</a></li>
+
+            </ul>
+        </li>
+        <li>
+            <a href="#/a"><i class="fa fa-cube"></i><span data-i18n="Biller(s)"></span></a>
+            <ul>
+                <li><a href="#/billerList/">List of Billers</a></li>
+                <li><a href="#/newBiller">Create Biller</a></li>                
+            </ul>
+        </li>
+        <li>
+            <a href="#/a"><i class="fa fa-cubes"></i><span data-i18n="Payor(s)"></span></a>
+            <ul>
+                <li><a href="#payorList/">List of Payors</a></li>
+                <li><a href="#newPayor">Create Payor</a></li>                
+            </ul>
+        </li>
+        <li>
+            <a href="#/user"><i class="fa fa-users"></i><span data-i18n="Users"></span></a>
+            <ul>
+                <li><a href="#/user">List of Users</a></li>
+                <li><a href="#/newUser">Create a User</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#/a"><i class="fa fa-building-o"></i><span data-i18n="Branch Office(s)"></span></a>
+            <ul>
+                <li><a href="#">List of Branch Offices</a></li>
+                <li><a href="#">Create a Branch Office</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#/a"><i class="fa fa-file-text"></i><span data-i18n="Reports"></span></a>
+            <ul>
+                <li><a href="#">Payor Paid Report</a></li>
+                <li><a href="#">Biller Collected Report</a></li>
+                <li><a href="#">ACH Report</a></li>
+                <li><a href="#">Merchant Report</a></li>
+                <li><a href="#">Credit Management Report</a></li>
+                <li><a href="#">Dispute </a></li>
+                <li><a href="#">Saved Custom Reports</a></li>
+            </ul>
+        </li>
+        <li>
+            <a href="#/a"><i class="fa fa-bank"></i><span data-i18n="Company Profile"></span></a>
+            <ul>
+                <li><a href="#/1">Biller Profile</a></li>
+                <li><a href="#">Payor Profile</a></li>
+            </ul>
+        </li>
+        <li class="nav-task">
+            <a href="#/tasks/tasks">
+                <i class="fa fa-tasks"></i><span data-i18n="Tasks"></span>
+                <span class="badge badge-danger main-badge"
+                      data-ng-show="taskRemainingCount > 0">{{taskRemainingCount}}</span>
+            </a>
+        </li>
+        <li>
+            <a href="#/mail"><i class="fa fa-comments"></i><span data-i18n="Chat/Messages"></span></a>
+            <ul>
+                <li><a href="#/chat"><i class="fa fa-caret-right"></i><span data-i18n="Chats"></span></a></li>
+                <li><a href="#/mail/inbox"><i class="fa fa-caret-right"></i><span data-i18n="Messages"></span></a></li>
+                <li><a href="#/mail/compose"><i class="fa fa-caret-right"></i><span data-i18n="Compose Message"></span></a></li>
+               
+            </ul>
+        </li>
+        <li>
+            <a href="#1"><i class="fa fa-cogs"></i><span data-i18n="Settings"></span></a>
+            <ul>
+                <li><a href="#1"><i class="fa fa-caret-right"></i><span data-i18n="Dashboard Stats"></span></a></li>
+                <li><a href="#1"><i class="fa fa-caret-right"></i><span data-i18n="Other2"></span></a></li>
+                <li><a href="#1"><i class="fa fa-caret-right"></i><span data-i18n="Other3"></span></a></li>
+            </ul>
+        </li>
+    </ul>
+</div>

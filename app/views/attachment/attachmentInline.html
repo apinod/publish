@@ -1,0 +1,66 @@
+﻿<style>
+    .table-hover tbody tr:hover th {
+        background-color: #deeafe !important;
+    }
+</style>
+<section data-ng-controller="attachmentCtrl as vm">
+    <div style="padding:20px; background-color:white;">
+        <div data-ng-show="vm.showLoading" class="progress progress-striped active">
+            <div class="bar" style="width: 100%;">{{vm.loadingMsg}}</div>
+        </div>
+        <table class="tableAttachment">
+            <tr>
+                <td>Attachment Type</td>
+                <td>Description</td>
+                <td>Created Date</td>
+                <td>Viewable to All</td>
+                <td>View</td>
+                <td>Delete</td>
+                <td>Email</td>
+            </tr>
+            <tr data-ng-repeat="item in vm.attachments">
+                <td>
+                    {{vm.transaction.transactionType.description}} {{item.fileExtension}}
+                </td>
+                <td>
+                    {{item.description}}
+                </td>
+                <td>
+                    {{item.createdOn|date:'M/dd/yyyy'}}
+                </td>
+                <td>
+                    <div data-ng-if="item.viewableByOtherParty" style="cursor:pointer">  <i data-a-ng-click="vm.makePrivate(item)" title="public document" class="fa fa-eye fa-2x"></i> </div>
+                    <div data-ng-if="!item.viewableByOtherParty" style="cursor:pointer">  <i data-a-ng-click="vm.makePublic(item)" title="private document" class="fa fa-eye-slash fa-2x"></i> </div>
+                </td>
+                <td>
+
+                    <div style="cursor:pointer" data-a-ng-click="vm.downloadFile(item,'/')">
+                        <i title="download" data-ng-class="{'doc-word':(item.fileExtension=='.docx' || item.fileExtension=='.doc' ),
+                                                           'doc-pdf':item.fileExtension=='.pdf' ,
+                                                           'doc-txt':item.fileExtension=='.txt' ,
+                                                           'doc-excel':item.fileExtension=='.xls',
+                                                           'doc-image':(item.fileExtension=='.jpeg' || item.fileExtension=='.jpg' || item.fileExtension=='.png'),
+                                                           'doc-unknown':(item.fileExtension!='.docx' &&
+                                                                          item.fileExtension!='.doc' &&
+                                                                          item.fileExtension!='.pdf' &&
+                                                                          item.fileExtension!='.xls' &&
+                                                                          item.fileExtension!='.jpeg' &&
+                                                                          item.fileExtension!='.jpg'  &&
+                                                                          item.fileExtension!='.png' &&
+                                                                          item.fileExtension!='.txt') }"></i>
+                    </div>
+                </td>
+                <td>
+                    <div style="cursor:pointer">  <i data-a-ng-click="vm.removeDocument(item)" title="private document" class="fa fa-trash-o fa-2x"></i> </div>
+                </td>
+                <td>
+                    <div style="cursor:pointer">  <i data-a-ng-click="vm.sendEmail(vm.transaction,1)" title="send as email" class="fa fa-envelope fa-2x"></i> </div>
+                </td>
+
+            </tr>
+        </table>
+
+
+    </div>
+
+</section>

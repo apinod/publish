@@ -1,0 +1,154 @@
+
+<div class="page page-profile" data-ng-controller="userProfileCtrl as vm" data-ng-cloak>
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-profile">
+                <div class="panel-heading text-center bg-info">
+                    <img alt="" src="{{main.imageProfile}}" class="img-circle img80_80">
+                    <h3>{{vm.user.name}}</h3>
+                    <p>President and CEO</p>
+                </div>
+                <div class="list-justified-container">
+                    <ul class="list-justified ">
+                        <li>
+                            <p class="size-h3">Change my Password</p>
+                            <div class="form-group">
+                                <div class="pull-left">
+                                    <div class="label-form">Old password</div>
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="pull-left">
+                                    <div class="label-form">New password</div>
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group ">
+                                <div class="pull-left">
+                                    <div class="label-form">Confirm new password</div>
+                                    <input type="password" class="form-control">
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <p class="size-h3"></p>
+                            <p class="text-muted"></p>
+                        </li>
+                        <li>
+                            <p class="size-h3"></p>
+                            <p class="text-muted"></p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!--<div class="row">
+                <div class="col-sm-6">
+                    <section class="panel panel-box">
+                        <div class="panel-top bg-facebook">
+                            <div class="divider divider"></div>
+                            <i class="fa fa-facebook size-h1"></i>
+                            <div class="divider divider"></div>
+                        </div>
+                        <div class="list-justified-container">
+                            <ul class="list-justified text-center">
+                                <li>
+                                    <p class="size-h3">575</p>
+                                    <p class="text-muted">Followers</p>
+                                </li>
+                                <li>
+                                    <p class="size-h3">23</p>
+                                    <p class="text-muted">Following</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+                <div class="col-sm-6">
+                    <section class="panel panel-box">
+                        <div class="panel-top bg-twitter">
+                            <div class="divider divider"></div>
+                            <i class="fa fa-twitter size-h1"></i>
+                            <div class="divider divider"></div>
+                        </div>
+                        <div class="list-justified-container">
+                            <ul class="list-justified text-center">
+                                <li>
+                                    <p class="size-h3">575</p>
+                                    <p class="text-muted">Followers</p>
+                                </li>
+                                <li>
+                                    <p class="size-h3">23</p>
+                                    <p class="text-muted">Following</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </section>
+                </div>
+            </div>-->
+
+
+        </div>
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Profile Info</strong></div>
+            <div class="panel-body">
+                <div class="media">
+                    <div class="media-body">
+                        <ul class="list-unstyled list-info">
+                            <li>
+                                <span class="icon glyphicon glyphicon-user"></span>
+                                <label>Name</label>
+                                <input type="text" name="Name"
+                                       class="form-control"
+                                       data-ng-model="vm.user.name" />
+                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.nameIsValid">{{vm.validator.validateObject.messages.nameMessage}}</span>
+
+
+                            </li>
+                            <li>
+                                <span class="icon glyphicon glyphicon-user"></span>
+                                <label>User name</label>
+                                <input type="text" name="Name"
+                                       class="form-control"
+                                       data-ng-model="vm.user.userName" />
+                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.userNameIsValid">{{vm.validator.validateObject.messages.userNameMessage}}</span>
+
+                            </li>
+                            <li>
+                                <span class="icon glyphicon glyphicon-envelope"></span>
+                                <label>Email</label>
+                                <input type="text" name="Name"
+                                       class="form-control"
+                                       data-ng-model="vm.user.email" />
+                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.emailIsValid">{{vm.validator.validateObject.messages.emailMessage}}</span>
+
+                            </li>
+                            <li>
+                                <span class="icon glyphicon glyphicon-home"></span>
+                                <label>Address</label>
+                                Street 123, Avenue 45, Country
+                            </li>
+                            <li>
+                                <span class="icon glyphicon glyphicon-earphone"></span>
+                                <label>Contact</label>
+                                <input type="text" name="Name"
+                                       class="form-control"
+                                       data-ng-model="vm.user.phoneNumber" />
+                                
+                            </li>
+
+                        </ul>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="btn-group pull-right">
+                <button data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</button>
+                <button data-ng-click="vm.save()" class=" btn btn-primary"><span class="fa fa-save"></span> Save</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,101 @@
+﻿<head>
+    <title></title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="http://test.payanybiz.com/styles/main.css">
+</head>
+<div style="margin-top:5%; margin-left:15%; margin-right:15%; background-color:#e7f6ff;overflow:auto; ">
+    <div data-ng-cloak>
+        <div class="row">
+            <div style="padding-bottom:1px;">
+                <div class="pull-left col-md-6">
+                    <img src="http://test.payanybiz.com/testpayanybiz/images/pabLogo.png" height="80px" width="300px">
+                    <h3>Transaction Detail</h3>
+                </div>
+            </div>
+            <div class=" col-md-12">
+                <div class="pull-left">
+                    Status:  <span class="badge">
+                        VERIFIED
+                    </span>
+                </div>
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-3" data-ng-if="vm.isbillercurrent">
+                <div class="label-form"><b>Biller:</b></div>
+                BILLERNAME
+            </div>
+            <div class="col-md-3" data-ng-if="!vm.isbillercurrent">
+                <div class="label-form">Payor</div>
+                PAYORNAME
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Amount</div>
+                $566777
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Departure Date</div>
+                10/22/2014
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="label-form">Due Date</div>
+                10/22/2014
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Arrival Date</div>
+                10/12/2014
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Type</div>
+                TYPE
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Category</div>
+                CATEGORY
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-3">
+                <div class="label-form">Payor Ref Number</div>
+                REF NUMBER
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Number</div>
+                NUMBER
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Related No.</div>
+                RELATED
+            </div>
+            <div class="col-md-3">
+                <div class="label-form">Payment confirmation No's.</div>
+                <div class="col-sm-6">
+                    <span class="label-form ">Payor </span>
+                    PAYOR
+                </div>
+                <div class="col-sm-6">
+                    <span class="label-form ">Biller</span>
+                    BILLER
+                </div>
+
+            </div>
+        </div>
+        <hr />
+        <div class="row">
+            <div class="col-md-6">
+                <div>
+                    <b>Description</b>
+                </div>
+                <p>DESCRIPTION</p>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+

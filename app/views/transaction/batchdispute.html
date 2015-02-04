@@ -1,0 +1,184 @@
+﻿<!--[if !IE]><!-->
+<style>
+    /*
+    Max width before this PARTICULAR table gets nasty
+    This query will take effect for any screen smaller than 760px
+    and also iPads specifically.
+    */
+    .backgroungWhite tr:hover {
+        background-color: white;
+    }
+
+    .input-amount {
+        height: 20px;
+        border-style: none;
+    }
+
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+        display: inline-block;
+        height: 20px;
+        padding: 2px;
+        margin-bottom: 0px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #555;
+        vertical-align: middle;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+
+
+    table#tbldsh {
+        width: 100%;
+        border-collapse: collapse;
+    }
+</style>
+<!--<![endif]-->
+<!--Batch Dispute Main Container-->
+<div class="page" id="batchdispoute" data-ng-controller="batchdisputeCtrl as vm" data-ng-cloak>
+    <!--Bread Crumbs-->
+    <ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li class="active"><a href="">Transaction Dispute</a></li>
+    </ol>
+    <!--Transaction Btach Dispute Table -->
+
+
+    <div style="padding:5px; background-color:white;">
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-th"></span>{{vm.title}} - {{vm.disputes.lenght}} Transactions </div>
+            <div class="panel-body" id="print">
+                <div class="row col-md-12">
+                    <!-- Batach Dispute Detail of Transactions-->
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped table-responsive ">
+                            <thead class="navbar-inverse">
+                                <tr class="th-font">
+                                    <th class="numeric">
+                                        Amount
+                                    </th>
+                                    <th class="numeric"> Disputed Amount</th>
+                                    <th>Number</th>
+                                    <th>Due Date</th>
+                                    <th>Related No.</th>
+                                    <th>Payor Ref #</th>
+                                    <th>Biller</th>
+                                    <th>Type</th>
+                                    <th>Current Status</th>
+                                    <th>X</th>
+                                </tr>
+                            </thead>
+                            <tbody data-pay-repeat="dispute in vm.disputes ">
+                                <tr>
+                                    <td>{{dispute.transaction.amount|currency}}</td>
+                                    <td width="70px">
+                                        <input type="text"
+                                               class="input-amount"
+                                               placeholder="$0.00"
+                                               data-ng-required="true"
+                                               data-pab-currency-input=""
+                                               data-ng-focused="vm.isFirstRow()"
+                                               data-ng-model="dispute.transaction.disputedAmount" />
+                                    </td>
+                                    <td>{{dispute.transaction.number}}</td>
+                                    <td>{{dispute.transaction.dueDate|date:'M/dd/yyyy'}}</td>
+                                    <td>{{dispute.transaction.relatedNumber}}</td>
+                                    <td>{{dispute.transaction.payorRefNumber}}</td>
+                                    <td>{{dispute.transaction.biller.legalName}}</td>
+                                    <td>{{dispute.transaction.bizArea.bizAreaDescription}}</td>
+                                    <td>
+                                        <span data-ng-class="{badge:true,
+                              'badge-success':dispute.transaction.transactionStatusId===3,
+                              'badge-warning':dispute.transaction.transactionStatusId===1,
+                              'badge-info':dispute.transaction.transactionStatusId===2,
+                              'badge-danger':dispute.transaction.transactionStatusId===4}">
+                                            {{dispute.transaction.transactionStatus.description}}
+                                        </span>
+                                    </td>
+                                    <td>
+                                        <button class="btn btn-dark btn-mini" data-ng-click="vm.removeFromBatch(dispute)" title="Remove">
+                                            <i class="fa fa-trash-o"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </section>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <!-- Dispute Reason -->
+                            <div class="label-form">Reason for Dispute</div>
+                            <span class="ui-select">
+                                <select class="form-control"
+                                        data-ng-model="vm.selecteddisputereason"
+                                        data-ng-options="c.description for c in vm.disputereasons">
+                                    <option value="">-- select dispute reason --</option>
+                                </select>
+                            </span>
+                            <div class="error-custom" data-ng-show="!vm.validator.validateObject.disputereasonIsValid">{{vm.validator.validateObject.messages.disputereasonMessage}}</div>
+                        </div>
+                        <div class="row">
+                            <!-- Dispute Category -->
+                            <div class="label-form">Category for Dispute</div>
+                            <span class="ui-select">
+                                <select class="form-control"
+                                        data-ng-model="vm.selecteddisputecategory"
+                                        data-ng-options="c.description for c in vm.disputecategories">
+                                    <option value="">-- select dispute category --</option>
+                                </select>
+                            </span>
+                            <div class="error-custom" data-ng-show="!vm.validator.validateObject.categoryIsValid">{{vm.validator.validateObject.messages.categoryMessage}}</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="col-md-12">
+                            <div class="label-form">Description</div>
+                            <textarea data-ng-readonly="vm.isTransactionApproved"
+                                      rows="5" cols="100" maxlength="1000"
+                                      data-ng-trim="false"
+                                      name="Description" data-ng-model="vm.description" class="form-control" />
+                            <div style="margin-top: -2px; margin-left: 3px; color: #005580; font-size: 11px !important; font-style: italic; ">(max 1000 characters) <span>{{1000 - vm.description.length}} left</span></div>
+
+                        </div>
+                        <div class="col-md-12">
+                            <div class="pull-right">
+                                <a data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</a>
+                                <button type="button" class="btn btn-primary" data-ng-click="vm.save()"> <i class="fa fa-save"></i> Save</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+</div>
+
+
+
+

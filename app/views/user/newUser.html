@@ -1,0 +1,110 @@
+﻿<div class="page" data-ng-controller="newUserCtrl as vm" data-ng-cloak>
+    <ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li><a href="#/user">User List</a></li>
+        <li class="active"><a href="">New User</a></li>
+    </ol>
+
+    <div style="padding:5px; background-color:white;">
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> New User</strong></div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+
+                    <div class="row">
+                       
+                            <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+                                <fieldset>
+
+                                    <div class="divider"></div>
+                                    <div class="row col-md-12">
+                                        <div class="form-group col-md-4">
+
+                                            <div class="label-form">Name</div>
+                                            <input type="text" name="name"
+                                                   class="form-control"
+                                                   data-ng-class="{ 'alert-error': !vm.validator.validateObject.nameIsValid }"
+                                                   data-ng-model="vm.user.name" />
+
+                                            <span class="error-custom" data-ng-show="!vm.validator.validateObject.nameIsValid">{{vm.validator.validateObject.messages.nameMessage}}</span>
+
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                           
+                                                <div class="label-form">Last Name</div>
+                                                <input type="text" name="lastName"
+                                                       class="form-control"
+                                                       data-ng-class="{ 'alert-error': !vm.validator.validateObject.lastNameIsValid }"
+                                                       data-ng-model="vm.user.lastName" />
+
+                                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.lastNameIsValid">{{vm.validator.validateObject.messages.lastNameMessage}}</span>
+                                           
+                                        </div>
+                                        <div class="form-group col-md-4">                                           
+                                                <div class="label-form">Email</div>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   required
+                                                   data-ng-model="vm.user.email" />
+                                          
+
+                                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.emailIsValid">{{vm.validator.validateObject.messages.emailMessage}}</span>                                          
+                                        </div>
+                                    </div>
+                                    <div class="row col-md-12">
+                                        <div class="form-group col-md-4">                                           
+                                                <div class="label-form">User Name</div>
+                                                <input type="text" name="userName"
+                                                       class="form-control"
+                                                       data-ng-class="{ 'alert-error': !vm.validator.validateObject.userNameIsValid }"
+                                                       data-ng-model="vm.user.userName" />
+                                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.userNameIsValid">{{vm.validator.validateObject.messages.userNameMessage}}</span>
+                                            
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                          
+                                                <div class="label-form">Telephone Number</div>
+                                                <input type="text" name="phoneNumber"
+                                                       class="form-control"
+                                                       data-ng-class="{ 'alert-error': !vm.validator.validateObject.payorRefIsValid }"
+                                                       data-ng-model="vm.user.phoneNumber" />
+                                                <span class="error-custom" data-ng-show="!vm.validator.validateObject.payorRefIsValid">{{vm.validator.validateObject.messages.payorRefMessage}}</span>
+                                         
+                                        </div>
+                                        <div class="row col-md-4">
+                                            <div class="col-md-6">
+                                                <div class="label-form">Send Internal Messages</div>
+                                                <label class="switch"><input type="checkbox" data-ng-model="vm.user.sendInternalMsg" checked><i></i></label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="label-form">Active</div>
+                                                <label class="switch"><input type="checkbox" data-ng-model="vm.user.active" checked><i></i></label>
+                                            </div>
+                                        </div>
+                                    </div>                                   
+                                    
+                                    <div class="row">
+                                        <div class="col-md-6">
+
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="pull-right">
+                                                <a data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</a>
+                                                <button type="button" class="btn btn-primary" data-ng-click="vm.save()"> <i class="fa fa-save"></i> Save</button>
+                                                <button data-ng-click="vm.goToUserSettings()" data-ng-show="vm.saved" class="btn btn-info"><span class="fa fa-cogs"></span> User Settings</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                  
+                                </fieldset>
+
+
+                            </form>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

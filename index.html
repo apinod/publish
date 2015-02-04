@@ -1,0 +1,166 @@
+﻿<!DOCTYPE html>
+<!--[if gt IE 8]><!-->
+<html class="no-js">
+<!--<![endif]-->
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>PayAnyBiz</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!--<link href="http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic" rel="stylesheet" type="text/css">-->
+    <!-- Needs images, font... therefore can not be part of main.css -->
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bower_components/weather-icons/css/weather-icons.min.css">
+    <!-- end Needs images -->
+
+    <link rel="stylesheet" href="styles/main.css">
+
+</head>
+<body data-ng-app="app" id="app" class="app" data-custom-page="" data-ng-show="pageLoaded" data-off-canvas-nav="" data-ng-controller="AppCtrl" data-ng-class=" {'layout-boxed': admin.layout === 'boxed' } ">
+
+    <!--[if lt IE 9]>
+        <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <section data-ng-include=" 'app/views/header.html' " id="header" class="header-container" data-ng-class=" {'header-fixed': admin.fixedHeader} " data-ng-controller="HeaderCtrl" data-ng-intro-options="introOptions" data-ng-intro-method="startIntro" data-ng-intro-autostart="false"></section>
+
+    <div class="main-container">
+        <aside data-ng-include=" 'app/views/nav.html' " id="nav-container" class="nav-container" data-ng-class=" {'nav-fixed': admin.fixedSidebar, 'nav-horizontal': admin.menu === 'horizontal', 'nav-vertical': admin.menu === 'vertical'}"></aside>
+
+        <section data-ng-view="" id="content" class="content-container animate-fade-up"></section>
+    </div>
+
+
+    <!--<script src="http://maps.google.com/maps/api/js?sensor=false"></script>-->
+    <script src="scripts/vendor.js"></script>
+    <script src="scripts/ui.js"></script>
+    <script src="signalr/hubs"></script>
+
+    <!-- Bootstrapping -->
+    <script src="app/app.js"></script>
+    <script src="app/config.js"></script>
+    <script src="app/config.exceptionHandler.js"></script>
+    <script src="app/config.route.js"></script>
+
+    <script src=" scripts/spin.js"></script>
+    <script src=" scripts/q.js"></script>
+    <script src=" scripts/breeze.debug.js"></script>
+    <script src=" scripts/breeze.angular.js"></script>
+    <script src=" scripts/breeze.directives.js"></script>
+    <script src=" scripts/breeze.directives.validation.js"></script>
+    <script src=" scripts/breeze.to$q.js"></script>
+    <script src=" scripts/breeze.saveErrorExtensions.js"></script>
+    <script src=" scripts/breeze.savequeuing.js"></script>
+
+
+
+    <script src="app/services/batchdisputeService.js"></script>
+    <script src="app/services/batchApproveService.js"></script>
+    <script src="app/services/tasksService.js"></script>
+    <script src="app/common/signalRSvc.js"></script>
+    <!--<script src=" app/config.js"></script>
+    <script src=" app/config.exceptionHandler.js"></script>
+    <script src=" app/config.route.js"></script>-->
+    <!--<script src="app/services/datacontext.js"></script>
+    <script src="app/services/directives.js"></script>
+    <script src="app/services/entityManagerFactory.js"></script>
+    <script src="app/services/model.js"></script>
+    <script src="app/services/routemediator.js"></script>
+    -->
+    <!--<script src=" app/common/common.js"></script>
+     <script src=" app/common/logger.js"></script>
+     <script src=" app/common/myResource.js"></script>
+     <script src=" app/common/notification.js"></script>
+     <script src=" app/common/validator.js"
+    <script src=" app/common/bootstrap/bootstrap.dialog.js"></script>-->
+    <!--<script src="app/user/userSettings.js"></script>-->
+    <!--
+
+
+     <script src="app/payment/payment.js"></script>
+     <script src="app/attachment/attachment.js"></script>
+     <script src="app/transaction/transactionTmplt.js"></script>
+     <script src="app/transaction/dispute.js"></script>
+     <script src="app/latestInvoices/latestInvoices.js"></script>
+     <script src="app/createInvoice/createInvoice.js"></script>
+     <script src="app/payanybiztemplate/payanybiztemplate.js"></script>
+    -->
+    <!--<script src="views/dashboard/dashboard.js"></script>-->
+    <script src="app/views/tasks/tasks.js"></script>
+    <script src="app/views/chatMessage/chat.js"></script>
+    <script src="app/views/biller/billerTmplt.js"></script>
+    <script src="app/views/biller/biller.js"></script>
+
+    <script src="app/views/test.js"></script>
+
+    <script src="app/views/biller/billerList.js"></script>
+    <script src="app/views/payor/payorTmplt.js"></script>
+    <script src="app/views/payor/payor.js"></script>
+    <script src="app/views/payor/payorList.js"></script>
+    <script src="app/views/pages/profile.js"></script>
+    <script src="app/views/pages/lock-screen.js"></script>
+    <script src="app/views/user/userSettings.js"></script>
+    <script src="app/views/user/newUser.js"></script>
+    <script src="app/views/user/user.js"></script>
+    <script src="app/views/user/userTmplt.js"></script>
+    <script src="app/views/payment/payment.js"></script>
+    <script src="app/views/transaction/batchdispute.js"></script>
+    <script src="app/views/transaction/dispute.js"></script>
+    <script src="app/views/transaction/transactionTmplt.js"></script>
+    <script src="app/views/transaction/transaction.js"></script>
+    <script src="app/views/transaction/transactionListCtrl.js"></script>
+
+
+
+
+    <script src="app/demo.js"></script>
+
+    <!--Controllers -->
+    <script src="app/controllers/app.controllers.js"></script>
+
+    <!-- <script src="app/controllers/headerCtrl.js"></script>
+     <script src="app/controllers/navContainerCtrl.js"></script>
+     -->
+    <!--<script src="app/views/navCtrl.js"></script>-->
+    <script src="app/views/attachment/attachment.js"></script>
+    <script src="app/views/dashboardCtrl.js"></script>
+    <script src="app/controllers/wizardFormCtrl.js"></script>
+    <script src="app/controllers/formConstraintsCtrl.js"></script>
+    <script src="app/controllers/signinCtrl.js"></script>
+    <script src="app/controllers/signupCtrl.js"></script>
+    <script src="app/controllers/invoiceCtrl.js"></script>
+    <!--Directives-->
+    <script src="app/directives/gaugeChart.directives.js"></script>
+    <script src="app/directives/flotChart.directives.js"></script>
+    <script src="app/directives/flotChartRealtime.directives.js"></script>
+    <script src="app/directives/sparkline.directives.js"></script>
+    <script src="app/directives/morrisChart.directives.js"></script>
+    <script src="app/directives/form.directives.js"></script>
+    <script src="app/directives/validateEquals.directives.js"></script>
+    <script src="app/directives/ui.directives.js"></script>
+    <script src="app/directives/nav.directives.js"></script>
+    <script src="app/directives/nav.directives.js"></script>
+    <script src="app/directives/app.directives.js"></script>
+    <!--Customs-->
+    <script src="app/common/common.js"></script>
+    <script src="app/common/logger.js"></script>
+    <script src="app/common/bootstrap/bootstrap.dialog.js"></script>
+    <script src=" app/common/myResource.js"></script>
+    <script src=" app/common/notification.js"></script>
+    <script src=" app/common/validator.js"></script>
+    <!--App-->
+    <script src="app/app.localization.js"></script>
+
+    <!--Services-->
+    <script src="app/services/datacontext.js"></script>
+    <script src="app/services/entityManagerFactory.js"></script>
+    <script src="app/services/model.js"></script>
+    <!--
+    <script src="app/controllers/HeaderCtrl.js"></script>-->
+    <!--<script src="views/dashboard.js"></script>-->
+    <!--<script src="app/app.js"></script>-->
+
+
+</body>
+</html>

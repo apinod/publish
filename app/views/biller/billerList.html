@@ -1,0 +1,90 @@
+﻿<div class="page" data-ng-controller="billerListCtrl as vm" data-ng-cloak>
+    <ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li class="active"><a href="">Biller List</a></li>
+    </ol>
+    <div style="padding:5px; background-color:white;">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Billers</strong></div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+
+                    <div class="col-md-1">
+                        <ul class="nav nav-boxed nav-justified">
+                            <li><a href="#/newBiller"><i class="color-info-alt fa fa-plus-square"></i> Add Biller </a></li>
+                        </ul>
+                    </div>
+
+                    <div class="row form-group">
+                        <div class="row-space-top"></div>
+                        <div class="col-sm-4">
+                            <input type="text"
+                                   data-ng-model="vm.billervm.filterBy.allCol"
+                                   data-ng-keyup="vm.search(vm.billervm, $event)"
+                                   placeholder="quick search"
+                                   class="form-control">
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="btn-group">
+                                <button data-ng-show="vm.billervm.filterBy.allCol" data-ng-click="vm.billervm.filterBy.allCol =''" class="btn btn-default" type="button"><i class="fa fa-eraser fa-2x"></i></button>
+                                <button title="apply filter" data-ng-click="vm.search(vm.billervm, $event)" class="btn btn-default"><i class="fa fa-filter fa-2x"></i></button>
+                                <button title="clear filter" data-ng-click="vm.clearFilter(vm.billervm)" class="btn btn-default"><i class="fa fa-refresh fa-2x"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <section class="table-flip-scroll">
+                        <table class="table table-bordered table-striped cf">
+                            <div data-ng-show="vm.isLoading" class="col-sm-6 pull-right"><i class="fa fa-spinner fa-spin fa-3x"></i>Loading ...</div>
+                            <thead class="navbar-inverse">
+                                <tr class="th-font">
+                                    <th>
+
+                                    </th>
+                                    <th>Company Name</th>
+                                    <th>DBA</th>
+                                    <th>TIN</th>
+                                    <th>E-Mail</th>
+                                    <th>Phone</th>
+                                    <th>Fax</th>
+                                    <th>Web Site</th>
+                                    <th>Active </th>
+                                </tr>
+                            </thead>
+                            <tbody data-pay-repeat="biller in vm.billers ">
+                                <tr data-ng-dblclick="vm.toggleDetail(biller)">
+                                    <td style="cursor:pointer;" data-ng-click="vm.toggleDetail(biller)" id="tddsh">
+                                        <i data-ng-show="!biller.detailsVisbile" class="fa fa-plus-square-o "></i>
+                                        <i data-ng-show="biller.detailsVisbile" class="fa fa-minus-square-o "></i>
+                                    </td>
+                                    <td>{{biller.legalName}}</td>
+                                    <td>{{biller.dba}}</td>
+                                    <td>{{biller.tin}}</td>
+                                    <td>{{biller.email}}</td>
+                                    <td>{{biller.phone}}</td>
+                                    <td>{{biller.fax}}</td>
+                                    <td>{{biller.url}}</td>
+                                    <td class="text-center">
+                                        <i data-ng-show="biller.active" class="fa fa-check-square-o"></i>
+                                        <i data-ng-show="!biller.active" class="fa fa-square-o"></i>
+                                    </td>
+                                </tr>
+                                <tr data-ng-show="biller.detailsVisbile">
+                                    <td colspan="9">
+                                        <div data-ng-if="biller.detailsVisbile">
+                                            <ng-include src="'/app/views/biller/billerTmplt.html'"></ng-include>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </section>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

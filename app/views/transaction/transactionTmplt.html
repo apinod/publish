@@ -1,0 +1,683 @@
+﻿
+<style>
+    #input-budget {
+        background-color: #ffffff;
+        border: 0px solid;
+        -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+        -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+        -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+        -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+        transition: border linear 0.2s, box-shadow linear 0.2s;
+        border-style: none;
+        display: inline-block;
+        padding: 2px;
+        margin-bottom: 0px;
+        font-size: 14px;
+        line-height: 20px;
+        color: #555;
+        border: 0px solid;
+        vertical-align: middle;
+        -webkit-border-radius: 0px;
+        -moz-border-radius: 0px;
+        border-radius: 0px;
+    }
+</style>
+
+<section data-ng-controller="transactionTmpltCtrl as vm">
+    <div id="{{vm.transaction.id}}" style="padding:5px; background-color:white;">
+        <div data-ng-cloak>
+            <div class="row">
+                <div style="padding-bottom:1px;">
+                    <div class="pull-left col-md-6">
+                        <h3>Transaction Detail </h3>
+
+
+                    </div>
+                    <!--Status-->
+                    <div class=" col-md-6">
+                        <div class="pull-right">
+                            <span data-ng-class="{badge:true,'badge-success':vm.isTransactionApproved,'badge-warning':vm.transaction.transactionStatusId===1,'badge-info':vm.transaction.transactionStatusId===2,'badge-danger':vm.transaction.transactionStatusId===4 }">
+                                <h4> {{vm.transaction.transactionStatus.description}}</h4>
+                            </span>
+                            <span class="btn-default btn" data-a-ng-click="vm.refreshTransactionInfo(vm.transaction.id)"><i class="fa fa-refresh fa-2x"></i></span>
+
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!--Biller--> <!--OR-->  <!--Payor-->
+                <div class="col-md-4" data-ng-if="vm.isbillercurrent">
+                    <div class="label-form">Biller</div>
+                    <input type="text"
+                           data-ng-model="vm.transaction.biller.legalName"
+                           data-ng-show="vm.isTransactionApproved || vm.isbillercurrent || vm.transaction.userId != main.userId"
+                           data-ng-readonly="true"
+                           id="txneditcustomerbiller"
+                           class="form-control" />                  
+                    <span class="nullable" data-ng-show="!(vm.isTransactionApproved || vm.isbillercurrent ||  vm.transaction.userId != main.userId)">
+                        <span class="ui-select">
+                            <select data-ng-model="vm.selectedbiller"
+                                    data-ng-class="{ 'alert-error': !vm.billerIsValid }"
+                                    data-ng-options="b.legalName for b in vm.customers"
+                                    id="txneditbillers">
+                                <option value="">-- select biller --</option>
+                            </select>
+                        </span>
+                    </span>
+                    <div class="info-custom">creator of the data</div>
+                </div>
+                <div class="col-md-4" data-ng-if="!vm.isbillercurrent">
+                    <div class="label-form">Payor</div>
+                    <input type="text"
+                           data-ng-model="vm.transaction.payor.legalName"
+                           data-ng-show="vm.isTransactionApproved || vm.ispayorcurrent || vm.transaction.userId != main.userId"
+                           data-ng-readonly="true"
+                           id="txneditcustomerpayor"
+                           class="form-control" />
+
+                    <span class="nullable" data-ng-show="!(vm.isTransactionApproved || vm.ispayorcurrent || vm.transaction.userId != main.userId)">
+                        <span class="ui-select">
+                            <select data-ng-model="vm.selectedpayor"
+                                    data-ng-class="{ 'alert-error': !vm.validator.validateObject.payorIsValid }"
+                                    data-ng-options="p.legalName for p in vm.customers"
+                                    id="txneditpayors">
+                                <option value="">-- select payor --</option>
+                            </select>
+                        </span>
+                    </span>
+                    <div class="info-custom">creator of the data</div>
+                </div>
+
+                <!--Amount-->
+                <div class="col-md-4">
+                    <div class="label-form">Amount</div>
+
+                    <input type="text"
+                           name="txneditamount"
+                           data-ng-click="vm.inputCurrency(vm.transaction.amount)"
+                           data-ng-required="true"
+                           data-pab-currency-input=""
+                           data-ng-model="vm.transaction.amount"
+                           data-ng-readonly="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                           class="form-control"
+                           data-ng-class="{ 'alert-error': !vm.validator.validateObject.amountIsValid }"
+                           id="txneditamount" />
+                    <div class="info-custom">amount being invoiced</div>
+                    <div class="error-custom" data-ng-show="!vm.validator.validateObject.amountIsValid">{{vm.validator.validateObject.messages.amountMessage}}</div>
+                </div>
+                <!--Departure Date -->
+                <div class="col-md-4">
+                    <div class="label-form">Departure Date</div>
+                    <div class="input-group ui-datepicker">
+                        <input type="text"
+                               show-weeks="false"
+                               class="form-control"
+                               datepicker-popup="MM/dd/yyyy"
+                               ng-model="vm.transaction.departureDate"
+                               data-ng-disabled="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                               is-open="vm.departureDateOpened"
+                               ng-click="vm.open($event,'departureDateOpened')"
+                               close-text="Close">
+                        <span class="input-group-addon" ng-click="vm.open($event,'departureDateOpened')"><i class="fa fa-calendar"></i></span>
+                    </div>
+                    <div class="info-custom">date shipment leaves</div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!--Biller--> <!--OR-->  <!--Payor-->
+                <div class="col-md-4" data-ng-if="!vm.isbillercurrent" data-ng-class="{ error: !vm.validator.validateObject.billerIsValid }">
+                    <div class="label-form">Biller</div>
+                    <input type="text"
+                           data-ng-model="vm.transaction.biller.legalName"
+                           data-ng-show="vm.isTransactionApproved || vm.isbillercurrent || vm.transaction.userId != main.userId"
+                           data-ng-readonly=" true"
+                           id="txneditcustomerbiller"
+                           class="form-control" />
+                    <span class="nullable" data-ng-show="!(vm.isTransactionApproved || vm.isbillercurrent || vm.transaction.userId != main.userId)">
+                        <span class="ui-select">
+                            <select data-ng-model="vm.selectedbiller"
+                                    data-ng-class="{ 'alert-error': !vm.billerIsValid }"
+                                    data-ng-options="b.legalName for b in vm.customers"
+                                    id="txneditbillers">
+                                <option value="">-- select biller --</option>
+                            </select>
+                        </span>
+                    </span>
+                    <div style="margin-top: -2px; margin-left: 3px; color: #005580; font-size: 11px !important; font-style: italic; ">text info test</div>
+
+                </div>
+                <div class="col-md-4" data-ng-if="vm.isbillercurrent" data-ng-class="{ error: !vm.validator.validateObject.payorIsValid }">
+                    <div class="label-form">Payor</div>
+                    <input type="text"
+                           data-ng-model="vm.transaction.payor.legalName"
+                           data-ng-show="vm.isTransactionApproved || vm.isbillercurrent || vm.transaction.userId != main.userId"
+                           data-ng-readonly=" true"
+                           id="txneditcustomerbiller"
+                           class="form-control" />
+                    <span class="nullable" data-ng-show="!(vm.isTransactionApproved || vm.ispayorcurrent || vm.transaction.userId != main.userId)">
+                        <span class="ui-select">
+                            <select data-ng-model="vm.selectedpayor"
+                                    data-ng-class="{ 'alert-error': !vm.validator.validateObject.payorIsValid }"
+                                    data-ng-options="p.legalName for p in vm.customers"
+                                    id="txneditpayors">
+                                <option value="">-- select payor --</option>
+                            </select>
+                        </span>
+                    </span>
+                    <div class="info-custom">payor is the party that is paying and validating the invoice</div>
+
+
+                </div>
+
+                <!--Due Date-->
+                <div class="col-md-4">
+                    <div class="label-form">Due Date</div>
+                    <div class="input-group ui-datepicker">
+                        <input type="text"
+                               show-weeks="false"
+                               class="form-control"
+                               datepicker-popup="MM/dd/yyyy"
+                               data-ng-model="vm.transaction.dueDate"
+                               data-ng-disabled="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                               is-open="vm.dueDateOpened"
+                               ng-click="vm.open($event,'dueDateOpened')"
+                               close-text="Close">
+                        <span class="input-group-addon" ng-click="vm.open($event,'dueDateOpened')"><i class="fa fa-calendar"></i></span>
+                    </div>
+                    <div class="info-custom">date payment is due</div>
+                </div>
+
+                <!--Arrival Date-->
+                <div class="col-md-4">
+                    <div class="label-form">Arrival Date</div>
+                    <div class="input-group ui-datepicker">
+                        <input type="text"
+                               show-weeks="false"
+                               class="form-control"
+                               datepicker-popup="MM/dd/yyyy"
+                               data-ng-model="vm.transaction.arrivalDate"
+                               data-ng-disabled="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                               is-open="vm.arrivalDateOpened"
+                               ng-click="vm.open($event,'arrivalDateOpened')"
+                               close-text="Close">
+                        <span class="input-group-addon" ng-click="vm.open($event,'arrivalDateOpened')"><i class="fa fa-calendar"></i></span>
+                    </div>
+                    <div class="info-custom">date shipment arrives destination</div>
+
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- Transaction Type -->
+                <div class="col-md-4">
+                    <div class="label-form">Type</div>
+                    <input type="text"
+                           data-ng-model="vm.selectedtransactiontype.description"
+                           data-ng-show="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                           data-ng-readonly="true"
+                           class="form-control" />
+                    <span class="nullable">
+                        <span class="ui-select">
+                            <select data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)"
+                                    data-ng-class="{ 'alert-error': !vm.validator.validateObject.typeIsValid }"
+                                    data-ng-model="vm.selectedtransactiontype"
+                                    data-ng-options="t.description for t in vm.transactiontypes">
+                                <option value="">-- select type --</option>
+                            </select>
+                        </span>
+                    </span>
+                    <div class="info-custom">type of document instrument</div>
+                    <div class="error-custom" data-ng-show="!vm.validator.validateObject.typeIsValid">{{vm.validator.validateObject.messages.typeMessage}}</div>
+
+                </div>
+                <!-- Transaction Category -->
+                <div class="col-md-4">
+                    <div class="label-form">Category</div>
+                    <input type="text"
+                           data-ng-model="vm.selectedcategory.bizAreaDescription"
+                           data-ng-show="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                           data-ng-readonly="true"
+                           class="form-control"
+                           id="edtCatRO" />
+                    <span class="nullable">
+                        <span class="ui-select">
+                            <select data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)"
+                                    data-ng-model="vm.selectedcategory"
+                                    data-ng-class="{ 'alert-error': !vm.validator.validateObject.categoryIsValid }"
+                                    data-ng-options="c.bizAreaDescription for c in vm.categories">
+                                <option value="">-- select category --</option>
+                            </select>
+                        </span>
+                    </span>
+                    <div class="info-custom">what industry</div>
+                    <div class="error-custom" data-ng-show="!vm.validator.validateObject.categoryIsValid">{{vm.validator.validateObject.messages.categoryMessage}}</div>
+
+                </div>
+                <!--Payor Ref #-->
+                <div class="col-md-4">
+                    <div class="label-form">Payor Ref Number</div>
+                    <input data-ng-readonly="vm.isTransactionApproved || vm.isbillercurrent "
+                           type="text" name="payorRefNumber"
+                           data-ng-class="{ 'alert-error': !vm.validator.validateObject.payorRefIsValid }"
+                           data-ng-model="vm.transaction.payorRefNumber"
+                           class="form-control" />
+                    <div class="info-custom">payor internal numbering system</div>
+                    <div class="error-custom" data-ng-show="!vm.validator.validateObject.payorRefIsValid">{{vm.validator.validateObject.messages.payorRefMessage}}</div>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <!--Transaction Number-->
+                <div class="col-md-4">
+                    <div class="label-form">Number</div>
+                    <input type="text" name="number"
+                           data-ng-model="vm.transaction.number"
+                           data-ng-readonly="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                           id="txneditnumber"
+                           data-ng-class="{ 'alert-error': !vm.validator.validateObject.numberIsValid }"
+                           class="form-control" />
+                    <div class="info-custom">{{vm.selectedtransactiontype.description}} number</div>
+                    <div class="error-custom" data-ng-show="!vm.validator.validateObject.numberIsValid">{{vm.validator.validateObject.messages.numberMessage}}</div>
+                </div>
+                <!--Related Number-->
+                <div class="col-md-4">
+                    <div class="label-form">Related No.</div>
+                    <input type="text"
+                           data-ng-model="vm.transaction.relatedNumber"
+                           data-ng-readonly="vm.isTransactionApproved || vm.transaction.userId != main.userId"
+                           data-ng-class="{ 'alert-error': !vm.validator.validateObject.relatedNumberIsValid }"
+                           class="form-control"
+                           id="txneditrelatednumber" />
+                    <div class="info-custom">related no.</div>
+                    <div class="error-custom" data-ng-show="!vm.validator.validateObject.relatedNumberIsValid">{{vm.validator.validateObject.messages.relatedNumberMessage}}</div>
+                </div>
+                <!--Payment conf Number-->
+                <div class="col-md-4">
+                    <div class="label-form">Payment confirmation No's.</div>
+                    <div class="col-sm-6">
+                        <span class="label-form ">Payor </span>
+                        <input type="text"
+                               class="form-control input-mini"
+                               data-ng-readonly="true"
+                               data-ng-model="vm.transaction.payorPaymentConf" />
+                        <div class="info-custom">payment confirmation #</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <span class="label-form ">Biller</span>
+                        <input type="text"
+                               class="form-control input-mini"
+                               data-ng-readonly="true"
+                               data-ng-model="vm.transaction.billerPaymentConf" />
+                        <div class="info-custom">payment confirmation #</div>
+                    </div>
+
+                </div>
+
+
+            </div>
+
+            <div class="row">
+                <div class="row-space"></div>
+                <!--Attachments-->
+                <div class="col-md-6">
+                    <accordion close-others="false" class="ui-accordion ">
+                        <accordion-group data-ng-class="{'ui-accordion-info':vm.attchedfilescount > 0}" is-open="status.isFirstOpen2">
+                            <accordion-heading>
+                                <i data-ng-show="!status.isFirstOpen2" class="fa fa-plus-square-o "></i>
+                                <i data-ng-show="status.isFirstOpen2" class="fa fa-minus-square-o "></i>
+                                Documents Attachment(s) {{vm.attchedfilescount}}
+                            </accordion-heading>
+                            <ng-include src="'/app/views/attachment/attachment.html'"></ng-include>
+                        </accordion-group>
+                        <accordion-group data-ng-class="{'ui-accordion-info':vm.transaction.description.length > 0}">
+                            <accordion-heading>
+                                <i data-ng-show="!status.isFirstOpen2" class="fa fa-plus-square-o "></i>
+                                <i data-ng-show="status.isFirstOpen2" class="fa fa-minus-square-o "></i>
+                                Description --- {{vm.transaction.description | limitTo:15 }}     see more...
+                            </accordion-heading>
+                            <div>
+                                <b>Description</b><div style="margin-top: -2px; margin-left: 3px; color: #005580; font-size: 11px !important; font-style: italic; ">(max 1000 characters) <span>{{1000 - vm.transaction.description.length}} left</span></div>
+                            </div>
+                            <textarea data-ng-readonly="vm.isTransactionApproved" rows="5" cols="100" maxlength="1000" data-ng-trim="false" name="Description" data-ng-model="vm.transaction.description" class="span10" />
+
+                        </accordion-group>
+                        <accordion-group data-ng-class="{'ui-accordion-info':vm.getRelatedNumberTotalAmount() > 0}">
+                            <accordion-heading>
+                                <i data-ng-show="!status.isFirstOpen2" class="fa fa-plus-square-o "></i>
+                                <i data-ng-show="status.isFirstOpen2" class="fa fa-minus-square-o "></i>
+                                Transaction Budget Details --- Total: {{vm.getRelatedNumberTotalAmount() | currency}}
+                            </accordion-heading>
+                                                  
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Container Number</th>
+                                        <th class="span2">Budget Numbers</th>
+                                        <th>Amount</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr data-ng-repeat="relnbr in vm.relatednumbers">
+                                        <td>
+                                            <input type="text" data-ng-readonly="vm.isTransactionApproved || vm.transaction.userId != main.userId" id="input-budget" data-ng-model="relnbr.number" />
+                                        </td>
+                                        <td>
+                                            <input type="text" data-ng-readonly="vm.isTransactionApproved || vm.transaction.userId != main.userId" id="input-budget" data-ng-model="relnbr.container" />
+                                        </td>
+                                        <td style="text-align: right;">
+                                            <input type="text" data-ng-readonly="vm.isTransactionApproved || vm.transaction.userId != main.userId" id="input-budget" data-pab-currency-input="" data-ng-model="relnbr.amount" />
+                                        </td>
+                                        <td data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)">
+                                            <div class="btn" style="cursor:pointer;" data-a-ng-click="vm.removeRelatedNumber(relnbr)" title="remove"><i class="fa fa-trash-o"></i></div>
+                                        </td>
+                                    </tr>
+                                    <tr data-ng-show="vm.relatedNumberTotalAmount > 0">
+                                        <td></td>
+                                        <td></td>
+                                        <td>
+                                            <div class="row">
+                                                <b>
+                                                    <span class="col-md-12  "> Total: <span data-ng-class="{'success-total': vm.transaction.amount == vm.getRelatedNumberTotalAmount(),'error-total': vm.transaction.amount != vm.getRelatedNumberTotalAmount()}"> {{vm.getRelatedNumberTotalAmount() | currency}}</span></span>
+                                                </b>
+
+                                                <span class="col-md-12 ">  (remaining : <span data-ng-class="{'error-total': vm.getRelatedNumberTotalRemaining() < 0}"> {{vm.getRelatedNumberTotalRemaining() | currency}}</span>) </span>
+                                            </div>
+                                        </td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <input value="" data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)" class="input-inline-form" type="text" placeholder="Container Number" data-ng-model="vm.relatedNumber.number" />
+                                        </td>
+                                        <td>
+                                            <input value="" data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)" class="input-inline-form" type="text" placeholder="Budget Number" data-ng-model="vm.relatedNumber.container" />
+
+                                        </td>
+                                        <td>
+                                            <input value="" data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)" class="input-inline-form" type="text" data-pab-currency-input="" data-ng-keyup="vm.addRelatedNumber($event)" data data-ng-click="vm.inputCurrency(vm.relatedNumber.amount)" placeholder="amount" data-ng-model="vm.relatedNumber.amount" />
+                                        </td>
+                                        <td>
+                                            <button class="btn" data-ng-show="!(vm.isTransactionApproved || vm.transaction.userId != main.userId)" data-ng-click="vm.addRelatedNumber($event)">add</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <hr />
+                            <br />
+                            <hr />
+                            <span class="label-form">Transaction Total Amount :</span>    ${{vm.transaction.amount}}  
+                        </accordion-group>
+                    </accordion>
+                </div>
+                <!--Alert verifier-->
+                <div class="col-md-6">
+
+                    <progressbar data-ng-show="vm.showLoading" class="progressbar-sm progress-striped" value="100" type="info">{{vm.loadingMsg}}</progressbar>
+                    <div class="col-md-12">
+                        <div class="btn-group pull-right" dropdown is-open="status.isopen7">
+                            <button type="button"
+                                    class="btn btn-w-md btn-gap-v btn-dark"
+                                    data-ng-show="vm.ispayorcurrent && vm.transaction.transactionStatusId != 3"
+                                    data-ng-click="vm.setSelectedToVerified()">
+                                <span class="fa fa-check-circle"></span>
+                                Verify
+                            </button>
+                            <button type="button"
+                                    data-ng-show="vm.ispayorcurrent && vm.transaction.transactionStatusId == 2"
+                                    data-ng-click="vm.goToPayment(vm.transaction)"
+                                    class="btn btn-w-md btn-gap-v btn-dark">
+                                <span class="fa fa-credit-card"></span>
+                                Approve
+                            </button>
+                            <button type="button"
+                                    data-ng-click="vm.goToDispute(vm.transaction)"
+                                    data-ng-show="vm.ispayorcurrent && vm.transaction.transactionStatusId == 1"
+                                    class="btn btn-w-md btn-gap-v btn-dark">
+                                <span class="fa fa-gavel"></span>
+                                Dispute
+                            </button>
+                            <button type="button"
+                                    data-ng-show="vm.ispayorcurrent && vm.transaction.transactionStatusId != 3"
+                                    class="btn btn-dark dropdown-toggle">
+                                <span class="fa fa-bullhorn"></span>
+                                Alert Verifier <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li data-ng-click="vm.sendEmail(vm.transaction)"><a href="javascript:;">Greyes</a></li>
+                                <li data-ng-click="vm.sendEmail(vm.transaction)"><a href="javascript:;">Jdelarua</a></li>
+                                <li data-ng-click="vm.sendEmail(vm.transaction)"><a href="javascript:;">Aclavelo</a></li>
+                                <li data-ng-click="vm.sendEmail(vm.transaction)"><a href="javascript:;">Ycaraballo</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="btn-group pull-right" dropdown is-open="status.isopen8">
+                            <button class="btn btn-w-md btn-gap-v btn-dark">
+                                <span class="glyphicon glyphicon-print"></span>
+                                Print
+                            </button>
+                            <button type="button"
+                                    class="btn btn-dark dropdown-toggle">
+                                <span class="fa fa-comments"></span>
+                                PayAnyBiz Chat
+                            </button>
+                            <ul class="dropdown-menu pull-right" role="menu">
+                                <li><a href="javascript:;">Internal</a></li>
+                                <li><a href="javascript:;">External</a></li>
+
+                            </ul>
+
+                        </div>
+                    </div>
+
+                   
+
+                    <div class="col-md-12"></div>
+                    <div class="row-space-top"></div>
+
+                    <div class="col-md-12 row-space-top">
+                        <div class="btn-group pull-right">
+                            <button data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</button>
+                            <button data-ng-click="vm.save()" class=" btn btn-primary"><span class="fa fa-save"></span> Save</button>
+                        </div>
+                        <br />
+                    </div>
+
+
+
+
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Txn History-->
+                <div class="col-md-6">
+
+                    <accordion close-others="false" class="ui-accordion ">
+                        <accordion-group class="ui-accordion-info" is-open="status.isFirstOpen3">
+                            <accordion-heading>
+                                <i data-ng-show="!status.isFirstOpen3" class="fa fa-plus-square-o "></i>
+                                <i data-ng-show="status.isFirstOpen3" class="fa fa-minus-square-o "></i>
+                                Transaction History
+                            </accordion-heading>
+                            <div class="ui-timline-container">
+                                <section class="ui-timeline">
+                                    <article class="tl-item" data-ng-repeat="item in vm.history">
+                                        <div class="tl-body">
+                                            <div class="tl-entry">
+                                                <div class="tl-time">{{item.mofidiedOn|date:'M/dd/yyyy hh:mm:ss'}}</div>
+                                                <div class="tl-icon round-icon sm bg-info"><i class="fa fa-info"></i></div>
+                                                <div class="tl-content">
+                                                    <h4 class="tl-tile text-primary">{{item.action}}</h4>
+                                                    <p><span class="label-form ">Modified by</span> : {{item.modifiedBy}}</p>
+                                                    <p><span class="label-form ">Field</span> : {{item.target}}</p>
+                                                    <p><span class="label-form ">Old value</span>: {{item.oldValue}}</p>
+                                                    <p><span class="label-form ">New value</span>: {{item.newValue}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </section>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+
+               
+                <div class="col-md-6">
+                    <!-- Dispute Details-->
+                    <accordion close-others="false" class="ui-accordion" data-ng-show="vm.transaction.transactionStatusId === 4">
+                        <accordion-group heading=" Dispute Details " class="ui-accordion-danger" is-open="status.isFirstOpen5">
+                            <accordion-heading>
+                                <i data-ng-show="!status.isFirstOpen5" class="fa fa-plus-square-o "></i>
+                                <i data-ng-show="status.isFirstOpen5" class="fa fa-minus-square-o "></i>
+                                Dispute History
+                            </accordion-heading>
+                            <div>
+
+                                <div class="col-md-12">
+                                   
+                                    <span><b>Dispute Details:</b></span>
+                                    <div class="col-md-12">
+                                        <span><b>-Amount Disputed :</b></span>
+                                        <span><b>{{vm.transaction.disputedAmount | currency}}</b></span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span><b>-Amount Payor Agrees to Pay :</b></span>
+                                        <span><b>{{(vm.transaction.amount - vm.transaction.disputedAmount)   | currency}}</b></span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span><b>-Dispute Category :</b></span>
+                                        <span><b>{{vm.selecteddisputecategory.description}}</b></span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span><b>-Dispute Reason :</b></span>
+                                        <span><b>{{vm.selecteddisputereason.description}}</b></span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <span><b>-Dispute Description :</b></span>
+                                        <span><p>{{vm.disputeinfo.description}}</p></span>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="row-space-top"></div>
+                                        <span data-ng-show="vm.isbillercurrent">
+                                            <button data-ng-click="vm.allowPartialPayment(vm.transaction)" class=" btn btn-primary"><i class="fa fa-star-half-o"></i> Allow Partial Payment</button>
+                                        </span>
+                                        <span data-ng-show="!vm.isbillercurrent">
+                                            <button data-ng-click="vm.replyDispute()" class=" btn btn-primary"><i class="fa fa-star-half-o"></i> Approve Partial Payment</button>
+                                            <button data-ng-click="vm.addDisputeComment(vm.transaction)" class=" btn btn-dark"><i class="fa fa-reply"></i> Reply Dispute</button>
+                                        </span>
+                                        
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="row-space-top"></div>
+                                        <div class="panel panel-default" data-ng-show="vm.showReply">
+                                            <div class="panel-heading panel-default"><strong><i class="fa fa-comments-o fa-2x"></i> Reply</span></strong></div>
+                                            <div class="panel-body">
+                                                <div class="col-md-12">
+                                                    <textarea data-ng-readonly="vm.isTransactionApproved"
+                                                              rows="5"
+                                                              cols="80"
+                                                              maxlength="1000"
+                                                              data-ng-trim="false"
+                                                              name="Description"
+                                                              data-ng-model="vm.comment.comment" class="span10" />
+                                                </div>
+                                                <div class="col-md-12 pull-right">
+                                                    <button data-ng-click="vm.saveDisputeComment()" class=" btn btn-primary"><i class="fa fa-paper-plane"></i></i> send</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                    </div>
+
+                                    <div class="row-space-top"></div>
+                                </div>
+                               <hr />
+                              
+                                <div class="col-md-12">
+                                    <!-- Media object -->
+                                    <div class="row-space-top"></div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading panel-default"><strong><i class="fa fa-comments-o fa-2x"></i> Comments</span></strong></div>
+                                        <div class="panel-body">
+                                            <div class="media" data-ng-repeat="item in vm.disputeComments">
+                                                <a class="pull-left" href="javascript:;">
+                                                    <img alt="" src="{{item.user.imageProfile}}" class="img-rounded img64_64">
+                                                </a>
+                                                <div class="media-body">
+                                                    <h4 class="media-heading"> {{item.user.name}} from {{item.customer.legalName}} said:</h4>
+                                                    <p>{{item.comment}}</p>
+                                                    <p class="info-custom">{{item.createdOn|date:'M/dd/yyyy hh:mm:ss'}}</p>
+                                                </div>
+                                            </div>                                        
+                                        </div>
+                                    </div>
+                                    <!-- end Media object -->
+                                </div>
+                                   
+                                </div>
+                        </accordion-group>
+                    </accordion>
+
+                    <!-- Dispute History-->
+                    <accordion close-others="false" class="ui-accordion ">
+                        <accordion-group heading=" Dispute History " is-open="status.isFirstOpen4">
+                            <accordion-heading>
+                                <i data-ng-show="!status.isFirstOpen4" class="fa fa-plus-square-o "></i>
+                                <i data-ng-show="status.isFirstOpen4" class="fa fa-minus-square-o "></i>
+                                Dispute History
+                            </accordion-heading>
+                            <div class="ui-timline-container">
+                                <section class="ui-timeline">
+                                    <article class="tl-item" data-ng-repeat="item in vm.disputehistory">
+                                        <div class="tl-body">
+                                            <div class="tl-entry">
+                                                <div class="tl-time">{{item.mofidiedOn|date:'M/dd/yyyy hh:mm:ss'}}</div>
+                                                <div class="tl-icon round-icon sm bg-danger"><i class="fa fa-gavel"></i></div>
+                                                <div class="tl-content">
+                                                    <h4 class="tl-tile text-primary">{{item.action}}</h4>
+                                                    <p><span class="label-form ">Modified by</span> : {{item.modifiedBy}}</p>
+                                                    <p><span class="label-form ">Field</span> : {{item.target}}</p>
+                                                    <p><span class="label-form ">Old value</span>: {{item.oldValue}}</p>
+                                                    <p><span class="label-form ">New value</span>: {{item.newValue}}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </section>
+                            </div>
+                        </accordion-group>
+                    </accordion>
+                </div>
+            </div>
+
+        </div>
+        <p id="bypassme">
+        </p>
+
+
+
+
+
+
+
+    </div>
+
+
+</section>
+

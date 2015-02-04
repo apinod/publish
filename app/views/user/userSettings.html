@@ -1,0 +1,66 @@
+﻿<div class="page" data-ng-controller="userSettingsCtrl as vm" data-ng-cloak>
+    <ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li><a href="#/user">User List</a></li>
+        <li class="active"><a href="">User Settings</a></li>
+    </ol>
+
+    <div style="padding:5px; background-color:white;">
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> {{vm.title}}</strong></div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+                    <div class="row col-md-12">
+                        <div class="label-form">
+                            Email Notifications and Authorization Settings
+                        </div>
+                        <section class="table-flip-scroll">
+                            <table class="table table-bordered table-striped cf">
+                                <thead class="navbar-inverse">
+                                    <tr class="th-font">
+                                        <th>Active</th>
+                                        <th>Notifications</th>
+                                        <th>Email Remainder</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-pay-repeat="item in vm.userSettings ">
+                                    <tr>
+                                        <td>
+                                            <input type="checkbox" data-ng-model="item.isChecked" checked>
+                                        </td>
+                                        <td>
+                                            <div class="label-form">{{item.description}}</div>
+                                            <span class="info-blue-custom">({{item.info}})</span>
+                                        </td>
+                                        <td>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   placeholder="email remainder"
+                                                   data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                   data-ng-model="item.email" />
+                                        </td>
+                                    </tr>
+
+
+                                </tbody>
+                            </table>
+                        </section>       
+                    </div>            
+                    <div class="pull-right">                     
+                       
+                            <button data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</button>
+                            <button data-ng-click="vm.save()" class=" btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                      
+                    </div>
+                   
+                    
+
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

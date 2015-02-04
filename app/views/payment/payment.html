@@ -1,0 +1,317 @@
+﻿<div class="page" data-ng-controller="paymentCtrl as vm" data-ng-cloak>
+    <ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li class="active"><a href="">Approve Transaction</a></li>
+    </ol>
+
+    <div style="padding:5px; background-color:white;">
+        <div class="panel panel-default">
+            <div class="panel-heading"><span class="glyphicon glyphicon-th"></span> Approve Transaction</div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+
+                    <tabset justified="true" class="ui-tab">
+                        <tab heading="Payment Method" data-ng-click="vm.nextTab(0)" active="(vm.selectedTab == 0)" disabled="true" >
+                            <div class="col-md-12">
+                                <div class="col-md-6">
+                                    <div class="ui-bullet li-btn" data-ng-click="vm.selectPaymentMethod(1)">
+                                        <div class="ui-bullet-icon round-icon " data-ng-class="{'bg-primary-light':vm.selectedPaymentId == 1}">
+                                            <i class="fa fa-star"></i>
+                                        </div>
+                                        <div class="ui-bullet-content">
+                                            <h3>PayAnyBiz Credit</h3>
+                                            <p>Credit avaliable: $65,200.00</p>
+                                        </div>
+                                    </div>
+                                    <div class="ui-bullet li-btn" data-ng-click="vm.selectPaymentMethod(2)">
+                                        <div class="ui-bullet-icon round-icon " data-ng-class="{'bg-primary-light':vm.selectedPaymentId == 2}">
+                                            <i class="fa fa-calendar"></i>
+                                        </div>
+                                        <div class="ui-bullet-content">
+                                            <h3>Next Day Pay</h3>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="ui-bullet li-btn" data-ng-click="vm.selectPaymentMethod(3)">
+                                        <div class="ui-bullet-icon round-icon " data-ng-class="{'bg-primary-light':vm.selectedPaymentId == 3}">
+                                            <i class="fa fa-calendar-o"></i>
+                                        </div>
+                                        <div class="ui-bullet-content">
+                                            <h3>Same Day Pay</h3>
+
+                                        </div>
+                                    </div>
+                                    <div class="ui-bullet li-btn" data-ng-click="vm.selectPaymentMethod(4)">
+                                        <div class="ui-bullet-icon round-icon " data-ng-class="{'bg-primary-light':vm.selectedPaymentId == 4}">
+                                            <i class="fa fa-credit-card"></i>
+                                        </div>
+                                        <div class="ui-bullet-content">
+                                            <h3>Credit Card</h3>
+                                            <p>Card ending: 7674 <span class="info-custom">other</span></p>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="pull-right">
+                                        <a data-ng-click="vm.nextTab(1)" class="btn btn-primary btn-direction btn-right">Next</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </tab>
+                        <tab heading="Verify Payment " active="(vm.selectedTab == 1)" disabled="(vm.selectedTab !=1)">
+
+
+                            <div class="invoice-wrapper">
+                                <section class="invoice-container" >
+
+                                    <div class="invoice-inner">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <img src="http://test.payanybiz.com/images/pabLogo.png" height="60px" width="160px" />
+
+                                                <p class="text-muted"></p>
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <p class="size-h3">PAYMENT NO. #----</p>
+
+                                                <p>{{vm.proccessingDate |date:'mediumDate'}}</p>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <strong>
+                                                    {{vm.currentcustomer.legalName}}  <br>
+                                                    {{main.address}} <br>
+                                                    {{main.city}}, {{main.state}}. {{main.zipCode}}
+                                                </strong><br>
+
+                                            </div>
+                                            <div class="col-xs-6 text-right">
+                                                <div class="col-md-12 text-left">
+                                                    <div class="col-md-4">
+
+                                                    </div>
+                                                    <div class="col-md-4">
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="label-form">Proccessing Date:</div>
+                                                        <p data-ng-show="vm.selectedPaymentId == 2 || vm.selectedPaymentId == 3"><u>{{vm.proccessingDate |date:'mediumDate'}}</u></p>
+                                                        <input type="text"
+                                                               show-weeks="false"
+                                                               class="form-control"
+                                                               datepicker-popup="MM/dd/yyyy"
+                                                               data-ng-model="vm.proccessingDate"
+                                                               data-ng-show="vm.selectedPaymentId == 1 || vm.selectedPaymentId == 4"
+                                                               is-open="vm.toBePaidDateOpened"
+                                                               ng-click="vm.open($event,'toBePaidDateOpened')"
+                                                               close-text="Close">
+                                                    </div>
+
+                                                </div>                                            
+                                                <br>
+                                                <div class="col-md-12 text-left">
+                                                    <div class="col-md-4">
+
+                                                    </div>
+                                                    <div class="col-md-4">
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="label-form">To be Paid:</div>
+                                                        <u data-ng-show="vm.selectedPaymentId == 3">{{vm.proccessingDate |date:'mediumDate'}}</u>
+                                                        <u data-ng-show="vm.selectedPaymentId != 3">{{vm.toBePaid() |date:'mediumDate'}}</u>
+                                                    </div>
+
+                                                </div>      
+                                            </div>
+                                        </div>
+                                        <div class="divider divider-lg"></div>
+                                        <p><strong>Payment Details:</strong></p>
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr class="bg-dark">
+                                                    <th>Biller</th>
+                                                    <th>Category</th>
+                                                    <th>Type</th>
+                                                    <th>Number</th>
+                                                    <th>Due Date</th>
+                                                    <th class="numeric">Amount</th>
+                                                    <th>Related No.</th>                                                  
+                                                    <th>Payor Ref #</th>
+                                                                                                    
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr data-ng-repeat="txn in vm.transactions">
+                                                    <td class="text-left">{{txn.biller.legalName}}</td>
+                                                    <td class="text-left">{{txn.bizArea.bizAreaDescription}}</td>
+                                                    <td> {{txn.transactionType.description}}</td>
+                                                    <td class="text-left">{{txn.number}}</td>
+                                                    <td class="text-left">{{txn.dueDate|date:'M/dd/yyyy'}}</td>
+                                                    <td class="text-left">{{txn.amount|currency}}</td>
+                                                    <td>{{txn.relatedNumber}}</td>
+                                                    <td>{{txn.payorRefNumber}}</td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                        <div class="row">
+                                            <div class="col-xs-8">
+                                                <p class="size-h3">Thanks for your business</p>
+                                                <ul>
+                                                    <li>*Comments Here Aeserunt tenetur cum nihil repudiandae perferendis fuga vitae corporis!</li>
+                                                    <li>*Comments HereLaborum, necessitatibus recusandae ullam at iusto dolore.</li>
+                                                  
+                                                </ul>
+                                            </div>
+                                            <div class="col-xs-4 invoice-sum text-right">
+                                                <ul class="list-unstyled">
+                                                    <li>Sub - Total amount: {{ vm.subTotalAmount |currency}}</li>
+                                                    <li data-ng-show="vm.selectedPaymentId == 1">Fee (2%): {{vm.fee |currency}}</li>
+                                                    <li data-ng-show="vm.selectedPaymentId != 1">Fee: {{vm.fee |currency}}</li>
+                                                    <li><strong>Grand Total: {{vm.grandTotal |currency}}</strong></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </section>
+                               
+                            </div>
+                            <div class="pull-right row-space">
+                                <a data-ng-click="vm.nextTab(0)" class="btn btn-primary btn-direction btn-left">Back</a>
+                                <a data-ng-click="vm.finished()" class="btn btn-primary btn-direction btn-right">Approve</a>
+                            </div>
+                        </tab>
+                        <tab heading="Confirm Payment" active="(vm.selectedTab == 2)" disabled="(vm.selectedTab !=2)">
+                            <div class="col-md-12">
+
+                                <div class="invoice-wrapper">
+                                    <section class="invoice-container" id="invoice">
+
+                                        <div class="invoice-inner">
+                                            <div class="row">
+                                                <div class="col-xs-4">
+                                                    <img src="http://test.payanybiz.com/images/pabLogo.png" height="60px" width="160px" />
+
+                                                    <p class="text-muted"></p>
+                                                </div>
+                                                <div class="col-xs-4">
+                                                    <p class="size-h1 color-success">PAYMENT APPROVED</p>
+
+                                                    <p class="text-muted"></p>
+                                                </div>
+                                                <div class="col-xs-4 text-right">
+                                                    <p class="size-h3">PAYMENT NO. #536782</p>
+                                                    <p>{{vm.proccessingDate |date:'mediumDate'}}</p>
+                                                </div>
+                                            </div>
+                                            <hr>
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <strong>
+                                                        {{vm.currentcustomer.legalName}}  <br>
+                                                        {{main.address}} <br>
+                                                        {{main.city}}, {{main.state}}. {{main.zipCode}}
+                                                    </strong><br>
+
+                                                </div>
+                                                <div class="col-xs-6 text-right">
+                                                    <div class="col-md-12 text-left">
+                                                        <div class="col-md-4">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="label-form">Proccessing Date:</div>
+                                                            <p><u>{{vm.proccessingDate |date:'mediumDate'}}</u></p>                                                           
+                                                        </div>
+                                                    </div>
+                                                    <br>
+                                                    <div class="col-md-12 text-left">
+                                                        <div class="col-md-4">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="label-form">To be Paid:</div>
+                                                            <u>{{vm.dateToPrint |date:'mediumDate'}}</u>
+                                                        </div>
+
+                                                    </div>  
+                                                </div>
+                                            </div>
+                                            <div class="divider divider-lg"></div>
+                                            <p><strong>Payment Details:</strong></p>
+                                            <table class="table table-bordered table-striped">
+                                                <thead>
+                                                    <tr class="bg-dark">
+                                                        <th>Biller</th>
+                                                        <th>Category</th>
+                                                        <th>Type</th>
+                                                        <th>Number</th>
+                                                        <th>Due Date</th>
+                                                        <th class="numeric">Amount</th>
+                                                        <th>Related No.</th>
+                                                        <th>Payor Ref #</th>
+
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr data-ng-repeat="txn in vm.transactions">
+                                                        <td class="text-left">{{txn.biller.legalName}}</td>
+                                                        <td class="text-left">{{txn.bizArea.bizAreaDescription}}</td>
+                                                        <td> {{txn.transactionType.description}}</td>
+                                                        <td class="text-left">{{txn.number}}</td>
+                                                        <td class="text-left">{{txn.dueDate|date:'M/dd/yyyy'}}</td>
+                                                        <td class="text-left">{{txn.amount|currency}}</td>
+                                                        <td>{{txn.relatedNumber}}</td>
+                                                        <td>{{txn.payorRefNumber}}</td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+                                            <div class="row">
+                                                <div class="col-xs-8">
+                                                    <p class="size-h3">Thanks for your business</p>
+                                                    <ul>
+                                                        <li>*Comments Here Aeserunt tenetur cum nihil repudiandae perferendis fuga vitae corporis!</li>
+                                                        <li>*Comments HereLaborum, necessitatibus recusandae ullam at iusto dolore.</li>
+                                                      
+                                                    </ul>
+                                                </div>
+                                                <div class="col-xs-4 invoice-sum text-right">
+                                                    <ul class="list-unstyled">
+                                                        <li>Sub - Total amount: {{ vm.subTotalAmount |currency}}</li>
+                                                        <li data-ng-show="vm.selectedPaymentId == 1">Fee (2%): {{vm.fee |currency}}</li>
+                                                        <li data-ng-show="vm.selectedPaymentId != 1">Fee: {{vm.fee |currency}}</li>
+                                                        <li><strong>Grand Total: {{vm.grandTotal |currency}}</strong></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                    <section class="text-center no-print">
+                                        <div ng-click="vm.printInvoice()" class="btn btn-primary btn-lg btn-w-lg"><i class="fa fa-print"></i> Print</div>
+                                    </section>
+                                </div>
+                            </div>
+                            <div class="divider divider-lg"></div>
+                            <div class="pull-right row-space">
+                                <a href="#/dashboard" class="btn btn-primary btn-direction btn-right">Go to Dashboard</a>
+                            </div>
+                        </tab>
+                    </tabset>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+

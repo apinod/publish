@@ -1,0 +1,505 @@
+﻿
+<a class="open-loader-popup mfp-hide" href="#loader-popup"></a>
+<div id="loader-popup" class="white-popup notif-popup mfp-hide">
+    <div style="margin: auto;">
+        <div class="spinner medium"></div>
+        <h5>Sending Request...</h5>
+    </div>
+</div>
+
+    <a class="open-error-popup mfp-hide" href="#error-popup"></a>
+    <div id="error-popup" class="white-popup notif-popup mfp-hide">
+        <div class="notif-main">
+            <h1>
+                <img src="~/images/error.png" />
+                <span id="error-title">500</span>
+            </h1>
+            <span id="error-body">
+                Thats an error.
+                <br>There was an error. Please Try again later. Thats all we know
+            </span>
+        </div>
+    </div>
+
+    <a class="open-warning-popup mfp-hide" href="#warning-popup"></a>
+    <div id="warning-popup" class="white-popup notif-popup mfp-hide">
+        <div class="notif-main">
+            <h1 style="display: block;">
+                <img src="~/images/warning.png" />
+            </h1>
+            <span id="warning-body">
+                Something it's wrong.
+            </span>
+        </div>
+    </div>
+
+    <a class="open-info-popup mfp-hide" href="#info-popup"></a>
+    <div id="info-popup" class="white-popup notif-popup mfp-hide">
+        <div class="notif-main">
+            <h1 style="display: block;">
+                <img src="~/images/info.png" />
+            </h1>
+            <span id="info-body">
+                Something it's wrong.
+            </span>
+        </div>
+    </div>
+
+    <div id="test-popup" class="white-popup mfp-hide">
+        <form id="register-form" action="/Account/AddUser">
+            <input type="hidden" id="Bgv4G" />
+            @*<h3>User Mode</h3>
+                <section>
+                    <div class="section-title">
+                        <span class="center-block">User Mode</span>
+                    </div>
+
+                    <div class="section-content" style="padding-top: 5%;">
+
+                        <input type="hidden" id="user_mode" name="user_mode" value="3" />
+
+                        <ul id="mode-list">
+                            <li id="biller_opt" class="btn btn-default col-md-one-third selected">
+                                Biller
+                            </li>
+                            <li id="payor_opt" class="btn btn-default col-md-one-third">
+                                Payor
+                            </li>
+                            <li id="both_opt" class="btn btn-primary col-md-one-third">
+                                Both
+                            </li>
+                        </ul>
+                    </div>
+                </section>*@
+
+            <h3>Company Info</h3>
+            <section>
+                <div class="section-title">
+                    <span class="center-block">Company Info</span>
+                </div>
+                <div class="section-content" style="padding-top: 3%;">
+
+                    <div class="col-md-half col-md-half-left">
+                        <div class="form-group">
+                            <input type="text"
+                                   id="v_companyname"
+                                   name="v_companyname"
+                                   class="form-control"
+                                   placeholder="Legal Company Name *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+                            <textarea id="v_address"
+                                      name="v_address"
+                                      class="form-control"
+                                      placeholder="Address *"
+                                      rows="2"></textarea>
+                            <div class="error-div"></div>
+                        </div>
+                        @*<div class="form-group">
+
+                    <input type="text"
+                           id="v_phone"
+                           name="v_phone"
+                           class="form-control"
+                           placeholder="Phone *">
+                    <div class="error-div"></div>
+                </div>*@
+                        <div class="form-group">
+                            <div class="col-md-half">
+                                <input type="text"
+                                       id="v_phone"
+                                       name="v_phone"
+                                       class="form-control"
+                                       placeholder="Phone *">
+                            </div>
+                            <div class="col-md-half right">
+                                <input type="text"
+                                       id="PhoneExt"
+                                       name="PhoneExt"
+                                       class="form-control"
+                                       placeholder="Phone Ext #">
+                            </div>
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text"
+                                   id="v_fax"
+                                   name="v_fax"
+                                   class="form-control"
+                                   placeholder="Fax">
+                            <div class="error-div"></div>
+                        </div>
+                    </div>
+                    <div class="col-md-half col-md-half-right">
+                        <div class="form-group">
+                            <input type="text"
+                                   id="v_dba"
+                                   name="v_dba"
+                                   class="form-control"
+                                   placeholder="DBA">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text"
+                                   id="v_tin"
+                                   name="v_tin"
+                                   class="form-control"
+                                   placeholder="Fed Tax ID Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+                            <input type="text"
+                                   id="v_duns"
+                                   name="v_duns"
+                                   class="form-control"
+                                   placeholder="D.U.N.S">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+                            <div style="display:flex;">
+                            <div class="col-md-one-third no-padding">
+                                <input type="text"
+                                    class="form-control"
+                                    id="v_city"
+                                    name="v_city"
+                                    placeholder="City *">
+                                @*<select class="form-control"
+                                        id="v_city"
+                                        name="v_city">
+                                    @foreach (var city in ViewBag.Cities)
+                                    {
+                                        <option value="@city.Id">@city.Name</option>
+                                    }
+
+                                </select>*@
+                            </div>
+                            <div class="col-md-one-third">
+
+                                <select class="form-control"
+                                        id="v_state"
+                                        name="v_state">
+                                    @foreach (var state in ViewBag.States)
+                                    {
+                                        <option value="@state.Id">@state.Name</option>
+                                    }
+
+                                </select>
+
+                            </div>
+                            <div class="col-md-one-third">
+                                <input type="text"
+                                       class="form-control"
+                                       id="v_zipcode"
+                                       name="v_zipcode"
+                                       placeholder="Zip Code *">
+                            </div>
+                            </div>
+                            <div class="error-div"></div>
+                        </div>
+                        @*<div class="form-group">
+
+                    <input type="text"
+                           id="PhoneExt"
+                           name="PhoneExt"
+                           class="form-control"
+                           placeholder="Phone Ext #">
+                    <div class="error-div"></div>
+                </div>*@
+                        <div class="form-group">
+                            <input type="email"
+                                   id="v_email"
+                                   name="v_email"
+                                   class="form-control"
+                                   placeholder="Email Address *">
+                            <div class="error-div"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <h3>Bank Info</h3>
+            <section>
+                <div class="section-title">
+                    <span class="center-block">Bank Info</span>
+                </div>
+                <div class="section-content" style="align-items: center; display: flex;">
+
+                    <div id="debit_info" class="col-md-half left no-padding" style="padding-left: 10%;">
+                        <span>Debit Account Info</span>
+
+                        <div class="form-group col-md-three-quarter" style="display: block;">
+
+                            <select class="form-control"
+                                    id="v_bank"
+                                    name="v_bank">
+                                @foreach (var bank in ViewBag.Banks)
+                                {
+                                <option value="@bank.Id">@bank.Name</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-three-quarter">
+
+                            <input type="text"
+                                   id="v_bba"
+                                   name="v_bba"
+                                   class="form-control"
+                                   placeholder="Bank Account Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group col-md-three-quarter">
+
+                            <input type="text"
+                                   id="v_bba_confirm"
+                                   name="v_bba_confirm"
+                                   class="form-control"
+                                   placeholder="Confirm Bank Account Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group col-md-three-quarter">
+
+                            <input type="text"
+                                   id="v_routingNumber"
+                                   name="v_routingNumber"
+                                   class="form-control"
+                                   placeholder="Routing Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group col-md-three-quarter no-margin">
+
+                            <input type="text"
+                                   id="v_routingNumber_confirm"
+                                   name="v_routingNumber_confirm"
+                                   class="form-control"
+                                   placeholder="Confirm Routing Number *">
+                            <div class="error-div"></div>
+                        </div>
+                    </div>
+
+                    <div style="width: auto; display: inline-block;">
+                        <div class="form-group">
+                            <div class="form-group">
+                                <a href="#" id="btn_replicate_right" class="btn btn-primary">
+                                    >>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <a href="#" id="btn_replicate_left" class="btn btn-primary">
+                                <<
+                            </a>
+                        </div>
+                    </div>
+
+                    <div id="credit_info" class="col-md-half right no-padding" style="padding-left: 10%;">
+                        <span>Credit Account Info</span>
+
+                        <div class="form-group col-md-three-quarter" style="display: block;">
+
+                            <select class="form-control"
+                                    id="v_cbank"
+                                    name="v_cbank">
+                                @foreach (var bank in ViewBag.Banks)
+                                {
+                                    <option value="@bank.Id">@bank.Name</option>
+                                }
+
+                            </select>
+                        </div>
+                        <div class="form-group col-md-three-quarter">
+
+                            <input type="text"
+                                   id="v_cba"
+                                   name="v_cba"
+                                   class="form-control"
+                                   placeholder="Bank Account Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group col-md-three-quarter">
+
+                            <input type="text"
+                                   id="v_cba_confirm"
+                                   name="v_cba_confirm"
+                                   class="form-control"
+                                   placeholder="Confirm Bank Account Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group col-md-three-quarter">
+
+                            <input type="text"
+                                   id="v_cr_routingNumber"
+                                   name="v_cr_routingNumber"
+                                   class="form-control"
+                                   placeholder="Routing Number *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group col-md-three-quarter no-margin">
+
+                            <input type="text"
+                                   id="v_cr_routingNumber_confirm"
+                                   name="v_cr_routingNumber_confirm"
+                                   class="form-control"
+                                   placeholder="Confirm Routing Number *">
+                            <div class="error-div"></div>
+                        </div>
+                    </div>
+                    @*<div class="form-group" style="text-align: center;">
+                        <label class="text-muted text-small">
+                            The PayAnyBiz platform allows its customers to manage all of their Accounts (Payable/ Receivable) with
+                            one simple registration
+                        </label>
+                    </div>*@
+                </div>
+
+            </section>
+
+            <h3>User Info</h3>
+            <section>
+                <div class="section-title">
+                    <span class="center-block">User Info</span>
+                </div>
+                <div class="section-content" style="padding-top: 5%;">
+                    <div class="form-group" style="text-align: center;">
+                        <label class="text-muted text-small">
+                            Providing this information you will become the administrator of the accounts
+                        </label>
+                    </div>
+                    <div class="col-md-three-quarter" style="padding-left: 25%;">
+                        <div class="form-group">
+
+                            <input type="text"
+                                   id="v_name"
+                                   name="v_name"
+                                   class="form-control"
+                                   placeholder="First Name *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text"
+                                   id="v_lastname"
+                                   name="v_lastname"
+                                   class="form-control"
+                                   placeholder="Last Name *">
+                            <div class="error-div"></div>
+                        </div>
+                        <div class="form-group">
+
+                            <input type="text"
+                                   id="r_username"
+                                   name="r_username"
+                                   class="form-control"
+                                   placeholder="User Name *">
+                            <div class="error-div"></div>
+                        </div>
+                    </div>
+                    <div class="form-group" style="text-align: center;">
+                        <label class="text-muted text-small">
+                            A temporary password will be sent by email after finalizing your registration.
+                        </label>
+                    </div>
+                </div>
+
+            </section>
+
+            <h3>Finalizing</h3>
+            <section>
+                <div class="section-title">
+                    <span class="center-block">Finalizing</span>
+                </div>
+                <div class="section-content" style="padding-top: 3%; text-align:center;">
+                    @*<div id="image1" class="form-group">
+                        
+                    </div>
+                    <a href="#" class="btn btn-default" onclick="generateCaptcha()">
+                        <i class="fa fa-refresh fa-2x"></i>
+                    </a>*@
+
+                    <div class="form-group">
+                        <div id="captcha-loader" class="form-group spinner medium mfp-hide"></div>
+                        <div id="image" class="form-group"></div>
+                        <input id="captcha" name="captcha" type="text" class="form-control" style="display: inline; width: auto;">
+                        <a href="#" class="btn btn-default" onclick="generateCaptcha()">
+                            <i class="fa fa-refresh fa-2x"></i>
+                        </a>
+                        <div class="error-div"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <input id="agree" name="agree" type="checkbox" style="margin: 0 3px;">
+                        <label class="text-muted text-small">I agree the <a href="javascript:;"><span>terms & conditions</span></a> and <a href="javascript:;"><span>privacy policy</span></a></label>
+                        <div class="error-div"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <a id="btn-submit" href="#/" onclick="formSubmitHandler()" class="btn btn-primary col-md-one-third" style="text-transform: uppercase;">Sign up</a>
+                    </div>
+
+                    <label class="text-muted text-small">Already have an account? <a href="#Login" onclick="closeRegisterForm();"><span>Log in now</span></a></label>
+                </div>
+
+            </section>
+        </form>
+
+    </div>
+
+    <a name="Login"></a>
+    <div class="container">
+
+        <div style="margin-top:-5%;">
+            <div class="intro-message">
+
+
+                <div style="height:50px;margin-top: 10%;">
+                    <img src="~/images/pabLogo.png" />
+                </div>
+
+
+                <hr class="intro-divider">
+
+                <span id="message" class="input-round label label-danger"></span>
+                <form>
+                    <fieldset>
+                        <div class=""></div>
+                        <div class="form-group login-fds-lg">
+                            <span class="glyphicon glyphicon-envelope"></span>
+                            <input type="email"
+                                   id="userName"
+                                   class="form-control input-lg input-round text-center"
+                                   placeholder="Username">
+                        </div>
+                        <div class="form-group login-fds-lg">
+                            <span class="glyphicon glyphicon-lock"></span>
+                            <input type="password"
+                                   id="password"
+                                   class="form-control input-lg input-round text-center"
+                                   placeholder="Password">
+                        </div>
+                        <br />
+                        <div class="form-group login-fds-lg">
+                            <a onclick="submitLogin()" href="#/" class="btn btn-primary btn-lg btn-round btn-block text-center">Log in</a>
+                        </div>
+                    </fieldset>
+                </form>
+                <div class="row ">
+                    <div class="col-md-4">
+
+                    </div>
+                    <div class="col-md-4 ">
+                        <p class="text-center input-round"><a href="#/pages/forgot-password">Forgot your password?</a></p>
+                        <p class="text-center input-round  text-muted  "><span><span><a href="#signup">Don't have an account yet? Sign up</a></span></span></p>
+
+                    </div>
+                    <div class="col-md-4">
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>

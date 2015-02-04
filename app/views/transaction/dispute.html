@@ -1,0 +1,146 @@
+﻿<div class="page" data-ng-controller="disputeCtrl as vm" data-ng-cloak>
+    <!--Bread Crumbs-->
+    <ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li class="active"><a href="">Dispute Transaction</a></li>
+    </ol>
+    <div style="padding:5px; background-color:white;">
+        <div id="{{vm.transaction.id}}" style="padding:5px; background-color:white;">
+            <div class="panel panel-default">
+                <div class="panel-heading"><span class="glyphicon glyphicon-th"></span>{{vm.title}}  <b># {{vm.disputeinfo.parenttransaction.number}} </b></div>
+                <div class="panel-body">
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="label-form">Biller</div>
+                            <input type="text"
+                                   data-ng-model="vm.disputeinfo.parenttransaction.biller.legalName"
+                                   data-ng-readonly="true"
+                                   id="txneditcustomerbiller"
+                                   class="form-control" />
+                        </div>
+                        <div class="col-md-4">
+                            <!--Requested Amount-->
+
+                            <div class="label-form">Requested Amount</div>
+                            <input type="text"
+                                   data-ng-disabled="true"
+                                   class="form-control"
+                                   value="{{vm.disputeinfo.parenttransaction.amount | currency}}" />
+
+                        </div>
+                        <div class="col-md-4">
+                            <!--Disputed Amount-->
+
+                            <div class="label-form">Amount Disputed</div>
+                            <input type="text"
+                                   name="txneditamount"
+                                   data-ng-readonly="vm.disputeinfo.isTransactionApproved"
+                                   data-ng-required="true"
+                                   data-pab-currency-input=""
+                                   data-ng-focused="true"
+                                   data-ng-model="vm.disputeinfo.parenttransaction.disputedAmount"
+                                   class="form-control"
+                                   id="txneditamount" />
+                            <div class="error-custom" data-ng-show="!vm.validator.validateObject.amountDiputedIsValid">{{vm.validator.validateObject.messages.amountDiputedMessage}}</div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="label-form">Requested Amount</div>
+                            <input type="text"
+                                   class="form-control"
+                                   data-ng-disabled="true"
+                                   value="{{(vm.disputeinfo.parenttransaction.amount - vm.disputeinfo.parenttransaction.disputedAmount) | currency}}" />
+                        </div>
+                        <!--Amount Approved-->
+                        <div class="col-md-4">
+                            <div class="label-form">Amount Payor Agrees to pay</div>
+                            <input type="text"
+                                   data-ng-disabled="true"
+                                   class="form-control"
+                                   value="{{(vm.disputeinfo.parenttransaction.amount - vm.disputeinfo.parenttransaction.disputedAmount) | currency}}" />
+                        </div>
+                        <!-- Dispute Reason -->
+                        <div class="col-md-4">
+                            <div class="label-form">Reason for Dispute</div>
+                            <input type="text"
+                                   class="form-control"
+                                   data-ng-model="vm.selecteddisputereason.description"
+                                   data-ng-show="vm.disputeinfo.isTransactionApproved"
+                                   data-ng-enabled="false" />
+                            <span class="nullable">
+                                <span class="ui-select">
+                                    <select data-ng-show="!vm.disputeinfo.isTransactionApproved"
+                                            data-ng-model="vm.selecteddisputereason"
+                                            data-ng-options="c.description for c in vm.disputereasons">
+                                        <option value="">-- select dispute reason --</option>
+                                    </select>
+                                </span>
+                            </span>
+                            <div class="error-custom" data-ng-show="!vm.validator.validateObject.disputereasonIsValid">{{vm.validator.validateObject.messages.disputereasonMessage}}</div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <!-- Dispute Category -->
+                        <div class="col-md-4">
+                            <div class="label-form">Category of Dispute</div>
+                            <input type="text"
+                                   data-ng-model="vm.selecteddisputecategory.description"
+                                   data-ng-show="vm.disputeinfo.isTransactionApproved"
+                                   data-ng-enabled="false"
+                                   class="form-control" />
+                            <span class="nullable">
+                                <span class="ui-select">
+                                    <select data-ng-show="!vm.disputeinfo.isTransactionApproved"
+                                            data-ng-model="vm.selecteddisputecategory"
+                                            data-ng-options="c.description for c in vm.disputecategories">
+                                        <option value="">-- select dispute category --</option>
+                                    </select>
+                                </span>
+                            </span>
+                            <div class="error-custom" data-ng-show="!vm.validator.validateObject.categoryIsValid">{{vm.validator.validateObject.messages.categoryMessage}}</div>
+                        </div>
+                        <!--Description-->
+                        <div class="col-md-4">
+                            <div class="label-form">Description of the dispute up to 2000 Characters</div>
+                            <textarea data-ng-readonly="vm.disputeinfo.isTransactionApproved"
+                                      cols="100" name="Description"
+                                      class="form-control"
+                                      data-ng-model="vm.disputeinfo.dispute.description" />
+                        </div>
+                        <div class="col-md-4">
+
+                        </div>
+                    </div>
+
+                    <div class="row col-md-12">
+                        <div class="pull-right">
+                            <a data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</a>
+                            <button type="button" class="btn btn-primary" data-ng-click="vm.save()"><i class="fa fa-save"></i> Save</button>
+                        </div>
+                    </div>
+
+
+
+                    <!--Attachments-->
+                    <div class="col-md-6">
+                        <accordion close-others="false" class="ui-accordion ">
+                            <accordion-group data-ng-class="{'ui-accordion-info':vm.attchedfilescount > 0}" heading=" Documents Attachment(s) " is-open="status.isFirstOpen2">
+                                <ng-include src="'/app/views/attachment/attachment.html'"></ng-include>
+                            </accordion-group>
+                        </accordion>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+

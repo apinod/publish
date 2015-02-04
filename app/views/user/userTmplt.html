@@ -1,0 +1,531 @@
+﻿<div class="page" data-ng-controller="userTmpltCtrl as vm" data-ng-cloak>
+    <div style="padding:5px; background-color:white;">
+
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> User Detail</strong></div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+
+                    <div class="row">
+
+                        <form name="form_constraints" class="form-validation" novalidate data-ng-submit="submitForm()">
+                            <fieldset>
+
+                                <div class="divider"></div>
+                                <div class="row col-md-12">
+                                    <div class="form-group col-md-4">
+
+                                        <div class="label-form">Name</div>
+                                        <input type="text" name="name"
+                                               class="form-control"
+                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.nameIsValid }"
+                                               data-ng-model="vm.user.name" />
+
+                                        <span class="error-custom" data-ng-show="!vm.validator.validateObject.nameIsValid">{{vm.validator.validateObject.messages.nameMessage}}</span>
+
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <div class="label-form">Last Name</div>
+                                        <input type="text" name="lastName"
+                                               class="form-control"
+                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.lastNameIsValid }"
+                                               data-ng-model="vm.user.lastName" />
+
+                                        <span class="error-custom" data-ng-show="!vm.validator.validateObject.lastNameIsValid">{{vm.validator.validateObject.messages.lastNameMessage}}</span>
+
+                                    </div>
+                                    <div class="form-group col-md-4">
+                                        <div class="label-form">Email</div>
+                                        <input type="text"
+                                               class="form-control"
+                                               required
+                                               data-ng-model="vm.user.email" />
+
+
+                                        <span class="error-custom" data-ng-show="!vm.validator.validateObject.emailIsValid">{{vm.validator.validateObject.messages.emailMessage}}</span>
+                                    </div>
+                                </div>
+                                <div class="row col-md-12">
+                                    <div class="form-group col-md-4">
+                                        <div class="label-form">User Name</div>
+                                        <input type="text" name="userName"
+                                               class="form-control"
+                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.userNameIsValid }"
+                                               data-ng-model="vm.user.userName" />
+                                        <span class="error-custom" data-ng-show="!vm.validator.validateObject.userNameIsValid">{{vm.validator.validateObject.messages.userNameMessage}}</span>
+
+                                    </div>
+                                    <div class="form-group col-md-4">
+
+                                        <div class="label-form">Telephone Number</div>
+                                        <input type="text" name="phoneNumber"
+                                               class="form-control"
+                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.payorRefIsValid }"
+                                               data-ng-model="vm.user.phoneNumber" />
+                                        <span class="error-custom" data-ng-show="!vm.validator.validateObject.payorRefIsValid">{{vm.validator.validateObject.messages.payorRefMessage}}</span>
+
+                                    </div>
+                                    <div class="row col-md-4">
+                                        <div class="col-md-6">
+                                            <div class="label-form">Send Internal Messages</div>
+                                            <label class="switch"><input type="checkbox" data-ng-model="vm.user.sendInternalMsg" checked><i></i></label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="label-form">Active</div>
+                                            <label class="switch"><input type="checkbox" data-ng-model="vm.user.active" checked><i></i></label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="divider"></div>
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-right">
+                                        <button data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</button>
+                                        <button data-ng-click="vm.save()" class=" btn btn-primary"><span class="fa fa-save"></span> Save</button>
+                                      
+                                    </div>
+                                </div>
+                                <hr />
+                                <div class="row col-md-12">
+                                    <div class="label-form">
+                                        Email Notifications and Authorization Settings
+                                    </div>
+                                    <section class="table-flip-scroll">
+                                        <table class="table table-bordered table-striped cf">
+                                            <thead class="navbar-inverse">
+                                                <tr class="th-font">
+                                                    <th>Active</th>
+                                                    <th>Notifications</th>
+                                                    <th>Email Remainder</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">New Pending Transaction</div>
+                                                        <span class="info-blue-custom">(Notification of a Newly Created Pending Transaction)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Verified Transaction</div>
+                                                        <span class="info-blue-custom">(Notification of a Newly Created Pending Transaction)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Approved Transaction</div>
+                                                        <span class="info-blue-custom">(Notification of a Transaction that has been Approved)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Verified Transaction</div>
+                                                        <span class="info-blue-custom">(Notification of a Newly Created Pending Transaction)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Dispute Reply</div>
+                                                        <span class="info-blue-custom">(Notification of Dispute Reply from Biller)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Dispute</div>
+                                                        <span class="info-blue-custom">(Notification of a New Dispute)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Add  & Edit  Attachments</div>
+                                                        <span class="info-blue-custom">(Notification of added or edited Attachment(s))</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Group of Transaction</div>
+                                                        <span class="info-blue-custom">(Notification when a group of Transactions changed statuses)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Transaction Change</div>
+                                                        <span class="info-blue-custom">(Notification when a transaction changes)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> New Branch Office Request</div>
+                                                        <span class="info-blue-custom">(A request from one of your  Branch Office)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Branch Office Acceptance/Rejection</div>
+                                                        <span class="info-blue-custom">(An acceptance or rejection from a Branch Office)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> New Biller Notification</div>
+                                                        <span class="info-blue-custom">(A Biller has connected with your company)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form"> Due Date Notification</div>
+                                                        <span class="info-blue-custom">(Warning of an up and coming Due Date)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Debit Bank Account Notification</div>
+                                                        <span class="info-blue-custom">(Advising of a bank debit of a previously approved trans)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Payment Method Notification</div>
+                                                        <span class="info-blue-custom">(If there is an issue with a payment method, i.e. expired credit card, updated financial request)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Payor Created Biller</div>
+                                                        <span class="info-blue-custom">(A payor creates a biller to send them a payment)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Fully Registered Biller</div>
+                                                        <span class="info-blue-custom">(A Payor Created Biller converting to a fully registered Biller)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Biller Connection</div>
+                                                        <span class="info-blue-custom">(Payor Connected with Biller)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Biller Connection/Rejection</div>
+                                                        <span class="info-blue-custom">(Biller rejected the connection with Payor)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Internal notification</div>
+                                                        <span class="info-blue-custom">(Notification of an internal message)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Internal / Response notification</div>
+                                                        <span class="info-blue-custom">(Notification of a response to an intial internal message)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">External notification</div>
+                                                        <span class="info-blue-custom">(Notification of an external message)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">External /Response notification</div>
+                                                        <span class="info-blue-custom">(Notification of a response to an intial external message)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Task Notification</div>
+                                                        <span class="info-blue-custom">(Notification of a Task request)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        <input type="checkbox" data-ng-model="vm.chk1" checked>
+                                                    </td>
+                                                    <td>
+                                                        <div class="label-form">Task Complete Notification</div>
+                                                        <span class="info-blue-custom">(Notification of a Completed Task)</span>
+                                                    </td>
+                                                    <td>
+                                                        <input type="text"
+                                                               class="form-control"
+                                                               placeholder="email remainder"
+                                                               data-ng-class="{ 'alert-error': !vm.validator.validateObject.emailIsValid }"
+                                                               data-ng-model="vm.email1" />
+                                                    </td>
+                                                </tr>
+
+                                            </tbody>
+                                        </table>
+                                    </section>
+                                </div>
+
+                              
+
+
+                                <div class="col-md-12">
+                                    <div class="btn-group pull-right">
+                                        <button data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</button>
+                                        <button data-ng-click="vm.save()" class=" btn btn-primary"><span class="fa fa-save"></span> Save</button>
+                                     
+                                    </div>
+                                </div>
+                            </fieldset>
+
+
+                        </form>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

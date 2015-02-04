@@ -1,0 +1,360 @@
+﻿<div class="page" data-ng-controller="testCtrl as vm">
+    <h1>{{vm.test.userName}}</h1>
+    <h1>{{vm.user.userName}}</h1>
+
+    <!--<button ng-click="vm.show()">Refresh</button>-->
+    <!--<ol class="breadcrumb-alt">
+        <li><a href="#/dashboard">Home</a></li>
+        <li><a href="#/billerList">Biller List</a></li>
+        <li class="active"><a href="">New Biller</a></li>
+    </ol>
+    <div style="padding:5px; background-color:white;">
+        <div class="panel panel-default">
+            <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> New Biller</strong></div>
+            <div class="panel-body">
+                <div class="row col-md-12">
+
+                    <div class="col-md-12 pull-left">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"><strong><i class="fa fa-filter"></i> Search </strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pull-left"><h4>Find if is already registered</h4></div>
+                                        <hr class="intro-divider">
+                                        <div class="row col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Find by Company Name</div>
+                                                    <input type="text"
+                                                           id="v_companyname"
+                                                           data-ng-model="vm.filterby.legalNameCol"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Find by Debit Account</div>
+                                                    <input type="text"
+                                                           id="v_dba"
+                                                           class="form-control"
+                                                           data-ng-model="vm.filterby.debitAccountCol"
+                                                           placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Find by Credit Account</div>
+                                                    <input type="text"
+                                                           id="v_tin"
+                                                           data-ng-model="vm.filterby.creditAccountCol"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4"></div>
+                                            <div class="col-md-4 ">
+                                                <div class="btn-group pull-right">
+                                                    <button data-ng-show="vm.billervm.filterBy.allCol" data-ng-click="vm.billervm.filterBy.allCol =''" class="btn btn-default" type="button"><i class="fa fa-eraser fa-2x"></i></button>
+                                                    <button title="apply filter" data-ng-click="vm.search()" class="btn btn-default"><i class="fa fa-search fa-2x"></i></button>
+                                                    <button title="clear filter" data-ng-click="vm.clearFilter()" class="btn btn-default"><i class="fa fa-refresh fa-2x"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-10">
+                                                <div data-ng-show="vm.billers.length > 0">
+                                                    <section class="table-flip-scroll">
+                                                        <table class="table table-bordered table-striped cf">                                                            
+                                                            <thead class="navbar-inverse">
+                                                                <tr class="th-font">
+                                                                    <th>Company Name</th>
+                                                                    <th>E-Mail</th>
+                                                                    <th>Phone</th>
+                                                                    <th>City </th>
+                                                                    <th>State </th>
+                                                                    <th>Active </th>
+                                                                    <th>Link</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody data-ng-repeat="biller in vm.billers ">
+                                                                <tr>
+                                                                    <td>{{biller.legalName}}</td>
+                                                                    <td>{{biller.email}}</td>
+                                                                    <td>{{biller.phone}}</td>
+                                                                    <td>{{biller.city_name}}</td>
+                                                                    <td>{{biller.state_name}}</td>
+
+                                                                    <td class="text-center">
+                                                                        <i data-ng-show="biller.active" class="fa fa-check-square-o"></i>
+                                                                        <i data-ng-show="!biller.active" class="fa fa-square-o"></i>
+                                                                    </td>
+                                                                    <td>
+                                                                        <i data-ng-click="vm.link(biller)" class="fa fa-link"></i>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </tbody>
+                                                        </table>
+                                                    </section>
+                                                    <div class="col-md-12">
+                                                        If you can not find the company you want to add in the list above, please add a new one
+                                                    </div>
+                                                    <div class="col-md-12">
+                                                        <button title="Add new biller" data-ng-click="vm.addNewBiller()" class="btn btn-default"><i class="fa fa-cube fa-2x"></i>Add New Biller</button>
+                                                    </div>
+                                                </div>
+                                                <div data-ng-show="vm.billers.length == 0 && vm.canInsert">
+                                                    <div class="col-md-12">
+                                                        Not found any company with that name or account number. 
+                                                        </div>
+                                                        <div class="col-md-12">
+                                                            <button title="Add new biller" data-ng-click="vm.addNewBiller()" class="btn btn-default"><i class="fa fa-cube fa-2x"></i>Add New Biller</button>
+                                                        </div>
+                                                    </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12 pull-left" data-ng-show="vm.showInsert">
+                        <div class="panel panel-info">
+                            <div class="panel-heading"><strong><i class="fa fa-cube"></i> Add New Biller </strong></div>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="pull-left"><h4> Company Info.</h4></div>
+                                        <hr class="intro-divider">
+
+                                        <div class="row col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Company Name</div>
+                                                    <input type="text"
+                                                           id="v_companyname"
+                                                           data-ng-model="vm.biller.legalName"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">DBA</div>
+                                                    <input type="text"
+                                                           id="v_dba"
+                                                           class="form-control"
+                                                           data-ng-model="vm.biller.dba"
+                                                           placeholder="">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">TIN</div>
+                                                    <input type="text"
+                                                           id="v_tin"
+                                                           data-ng-model="vm.biller.tin"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">E-Mail</div>
+                                                    <input type="text"
+                                                           id="v_email"
+                                                           data-ng-model="vm.biller.email"
+                                                           class="form-control">
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Phone</div>
+                                                    <input type="text"
+                                                           id="v_phone"
+                                                           data-ng-model="vm.biller.phone"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Fax</div>
+                                                    <input type="text"
+                                                           data-ng-model="vm.biller.fax"
+                                                           id="v_fax"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <div class="label-form">Address</div>
+                                                    <input type="text"
+                                                           id="v_address"
+                                                           data-ng-model="vm.biller.address"
+                                                           class="form-control">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="label-form">City</div>
+                                                    <span class="ui-select">
+                                                        <select data-ng-model="vm.selectedCity"
+                                                                class="text-small"
+                                                                data-ng-options="b.name for b in vm.cities">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="label-form">Zip Code</div>
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           data-ng-model="vm.biller.zipPostal"
+                                                           id="v_zipcode">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="label-form">State</div>
+                                                    <span class="ui-select">
+                                                        <select data-ng-model="vm.selectedState"
+                                                                class="text-small"
+                                                                data-ng-options="b.name for b in vm.states">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <div class="label-form">Country</div>
+                                                    <span class="ui-select">
+                                                        <select data-ng-model="vm.selectedCountry"
+                                                                class="text-small"
+                                                                data-ng-options="b.name for b in vm.countries">
+                                                            <option value=""></option>
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row-space"></div>
+
+                                        <div class="pull-left"><h4> Bank Info.</h4></div>
+                                        <hr class="intro-divider">
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6 text-center">
+                                                <div class="label-form">
+                                                    <p>Debit Account</p>
+                                                </div>
+                                                <hr class="intro-divider">
+                                            </div>
+                                            <div class="col-md-6 text-center">
+                                                <div class="label-form">
+                                                    <p>Credit Account</p>
+                                                </div>
+                                                <hr class="intro-divider">
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <input type="text"
+                                                           class="form-control"
+                                                           id="v_bank"
+                                                           placeholder="Bank Name">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <input type="text"
+                                                           id="v_bank"
+                                                           class="form-control"
+                                                           placeholder="Bank Name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <input type="text"
+                                                           id="v_accountNumber"
+                                                           class="form-control"
+                                                           placeholder="Account Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <input type="text"
+                                                           id="v_accountNumber"
+                                                           class="form-control"
+                                                           placeholder="Account Number">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <input type="text"
+                                                           id="v_routingNumber"
+                                                           class="form-control"
+                                                           placeholder="Routing Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+
+                                                    <input type="text"
+                                                           id="v_routingNumber"
+                                                           class="form-control"
+                                                           placeholder="Routing Number">
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <input type="checkbox">
+                                                <span class="info-custom">Same Account number for Debit &amp; Credit</span>
+
+                                            </div>
+                                        </div>
+                                        <hr class="intro-divider">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" data-ng-show="vm.showInsert">
+                        <div class="col-md-6">
+
+                        </div>
+                        <div class="col-md-6">
+                            <div class="pull-right">
+                                <a data-ng-click="vm.goToDashboard()" class="btn btn-warning">Cancel</a>
+                                <button type="button" class="btn btn-primary" data-ng-click="vm.save()"> <i class="fa fa-save"></i> Save</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>-->
+</div>
